@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.profile.ProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <ImageView
+            android:id="@+id/img_setting"
+            android:src="@drawable/ic_settings"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/todo" />
+
+        <TextView
+            android:id="@+id/txt_setting"
+            android:text="@string/profil_saya"
+            android:textColor="@color/colorHeader"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_toEndOf="@id/img_setting"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/img_message"
+            android:src="@drawable/ic_textsms"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/todo"/>
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_logo"
+            android:src="@drawable/logo"
+            android:layout_marginStart="25dp"
+            android:layout_width="86dp"
+            android:layout_height="86dp" />
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:text="@string/nama"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorHeader"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/img_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_name"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="35dp"
+            android:layout_toEndOf="@id/img_logo"
+            android:text="@string/email"
+            android:textColor="@color/colorHeader"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_belanja"
+            android:text="@string/belanja_saya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_below="@id/txt_belanja"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_verifikasi"
+                android:text="@string/belum_diverifikasi"
+                android:layout_gravity="center"
+                android:textSize="8sp"
+                android:textAllCaps="false"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btn_dikemas"
+                android:text="@string/dikemas"
+                android:layout_gravity="center"
+                android:textSize="8sp"
+                android:textAllCaps="false"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btn_dikirim"
+                android:text="@string/dikirim"
+                android:layout_gravity="center"
+                android:textSize="8sp"
+                android:textAllCaps="false"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btn_selesai"
+                android:text="@string/selesai"
+                android:layout_gravity="center"
+                android:textSize="8sp"
+                android:textAllCaps="false"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:ignore="SmallSp" />
+
+            <Button
+                android:id="@+id/btn_batal"
+                android:text="@string/batal"
+                android:layout_gravity="center"
+                android:textSize="8sp"
+                android:textAllCaps="false"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:ignore="SmallSp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+</LinearLayout>

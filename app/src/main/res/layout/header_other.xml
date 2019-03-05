@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:background="@color/colorBackground">
+
+    <ImageView
+        android:id="@+id/image_home"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="13dp"
+        android:src="@drawable/logo"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:contentDescription="@string/todo" />
+
+    <TextView
+        android:id="@+id/txt_header"
+        android:layout_toEndOf="@id/image_home"
+        android:text="@string/header"
+        android:layout_centerVertical="true"
+        android:textSize="18sp"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="RelativeOverlap" />
+
+    <ImageView
+        android:id="@+id/image_troli"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="13dp"
+        android:src="@drawable/troli"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:contentDescription="@string/todo" />
+
+</RelativeLayout>

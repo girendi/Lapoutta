@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MetodeActivity">
+
+    <include
+        android:id="@+id/header_metode"
+        layout="@layout/header_other"/>
+
+    <LinearLayout
+        android:layout_below="@id/header_metode"
+        android:id="@+id/ll_online"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="center"
+            android:text="@string/kirim_online"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/mengirimkan_pesanan_anda_ketempat_yang_anda_inginkan"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_online"
+            android:text="@string/kirim_online"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBackground"
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@id/ll_online"
+        android:id="@+id/ll_offline"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="center"
+            android:text="@string/kirim_offline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/anda_dapat_mengambil_pesanan_langsung_ke_lokasi_penjual"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_offline"
+            android:text="@string/kirim_offline"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBackground"
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <include
+        android:layout_alignParentBottom="true"
+        android:id="@+id/footer_metode"
+        layout="@layout/footer_main"
+        android:layout_height="58dp"
+        android:layout_width="match_parent" />
+
+</RelativeLayout>
