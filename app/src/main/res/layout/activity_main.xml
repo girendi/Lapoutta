@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".activity.MainActivity">
 
     <include
         android:id="@+id/layout_header"
         layout="@layout/header_main"/>
 
-    <com.synnapps.carouselview.CarouselView
+    <AdapterViewFlipper
         android:layout_below="@id/layout_header"
         android:layout_margin="10dp"
-        android:id="@+id/carouselView"
+        android:id="@+id/adapterViewFlipper"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:fillColor="#FFFFFFFF"
-        app:pageColor="#00000000"
-        app:radius="6dp"
-        app:slideInterval="3000"
-        app:strokeColor="#FF777777"
-        app:strokeWidth="1dp"/>
+        android:layout_height="200dp"/>
 
     <RelativeLayout
         android:id="@+id/rl_view"
-        android:layout_below="@id/carouselView"
+        android:layout_below="@id/adapterViewFlipper"
         android:layout_above="@id/footer_main"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

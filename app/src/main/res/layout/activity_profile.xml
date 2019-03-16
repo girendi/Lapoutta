@@ -51,7 +51,7 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_logo"
+            android:id="@+id/img_profile"
             android:src="@drawable/logo"
             android:layout_marginStart="25dp"
             android:layout_width="86dp"
@@ -65,7 +65,7 @@
             android:textColor="@color/colorHeader"
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/img_logo"
+            android:layout_toEndOf="@id/img_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -76,7 +76,7 @@
             android:layout_below="@id/txt_name"
             android:layout_marginStart="10dp"
             android:layout_marginTop="35dp"
-            android:layout_toEndOf="@id/img_logo"
+            android:layout_toEndOf="@id/img_profile"
             android:text="@string/email"
             android:textColor="@color/colorHeader"
             android:textSize="12sp" />

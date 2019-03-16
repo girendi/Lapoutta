@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.d4ti.lapoutta.activity.AuthActivity;
+import com.d4ti.lapoutta.activity.MainActivity;
+import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -13,6 +15,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        SaveSharedPreference.setLoggedIn(this, false);
     }
 
     @Override
@@ -21,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
         },3000);

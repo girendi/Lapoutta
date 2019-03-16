@@ -1,17 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Lapoutta</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello fragment kosong</string>
     <string name="todo">TODO</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="login">Masuk</string>
+    <string name="register">Mendaftar</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="nama">Name</string>
+    <string name="password">Kata Sandi</string>
+    <string name="nama">Nama</string>
     <string name="confirmation_password">Confirmation Password</string>
-    <string name="cari_disini">Search this....</string>
-    <string name="rekomendasi">Recommendation</string>
+    <string name="cari_disini">Cari Disini....</string>
+    <string name="rekomendasi">Rekomendasi</string>
     <string name="kategori">Kategori</string>
     <string name="header">Header</string>
     <string name="rating">Rating</string>
@@ -23,7 +24,7 @@
     <string name="lokasi">Lokasi</string>
     <string name="kunjungi_toko">Kunjungi Toko</string>
     <string name="_100">100</string>
-    <string name="product">Product</string>
+    <string name="product">Produk</string>
     <string name="review">Review</string>
     <string name="beli_sekarang">Beli Sekarang</string>
     <string name="tambah_kekeranjang">Tambah Kekeranjang</string>
@@ -70,7 +71,4 @@
     <string name="selesai">Selesai</string>
     <string name="batal">Batal</string>
     <string name="nama_produk">Nama Produk</string>
-    <string name="username">Username</string>
-    <string name="telepon">Telepon</string>
-    <string name="simpan">Simpan</string>
 </resources>
