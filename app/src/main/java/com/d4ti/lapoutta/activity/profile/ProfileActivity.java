@@ -1,6 +1,7 @@
 package com.d4ti.lapoutta.activity.profile;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +13,14 @@ import android.widget.Toast;
 
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.AuthActivity;
+import com.d4ti.lapoutta.activity.chat.ChatActivity;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
+import com.d4ti.lapoutta.fragment.profile.CancelFragment;
+import com.d4ti.lapoutta.fragment.profile.DoneFragment;
+import com.d4ti.lapoutta.fragment.profile.NotVerifiedFragment;
+import com.d4ti.lapoutta.fragment.profile.PackedFragment;
+import com.d4ti.lapoutta.fragment.profile.SentFragment;
 import com.d4ti.lapoutta.modal.Customer;
 import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 
@@ -40,6 +47,14 @@ public class ProfileActivity extends AppCompatActivity {
     private BaseApiService baseApiService;
     private List<Customer> customerList;
 
+    private NotVerifiedFragment notVerifiedFragment;
+    private PackedFragment packedFragment;
+    private SentFragment sentFragment;
+    private DoneFragment doneFragment;
+    private CancelFragment cancelFragment;
+
+    private FragmentManager manager;
+
     private int id;
     private String email;
 
@@ -58,6 +73,8 @@ public class ProfileActivity extends AppCompatActivity {
         id  = SaveSharedPreference.getIdUser(this);
         email = SaveSharedPreference.getEmail(this);
         getProfile();
+        setFragment();
+
 
         imgSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,11 +83,62 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        imgMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+            }
+        });
+
+        btnVerifikasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.beginTransaction().replace(R.id.frameLayout, notVerifiedFragment).commit();
+            }
+        });
+
+        btnDikemas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.beginTransaction().replace(R.id.frameLayout, packedFragment).commit();
+            }
+        });
+
+        btnDikirim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.beginTransaction().replace(R.id.frameLayout, sentFragment).commit();
+            }
+        });
+
+        btnSelesai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.beginTransaction().replace(R.id.frameLayout, doneFragment).commit();
+            }
+        });
+
+        btnBatal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.beginTransaction().replace(R.id.frameLayout, cancelFragment).commit();
+            }
+        });
+
+    }
+
+    private void setFragment() {
+        manager.beginTransaction().replace(R.id.frameLayout, notVerifiedFragment).commit();
     }
 
     public void initComponent(){
+        //api
         baseApiService = UtilsApi.getAPIService();
+
+        //list model
         customerList = new ArrayList<>();
+
+        //view
         imgSetting = findViewById(R.id.img_setting);
         imgMessage = findViewById(R.id.img_message);
         imgProfile = findViewById(R.id.img_profile);
@@ -81,6 +149,14 @@ public class ProfileActivity extends AppCompatActivity {
         btnDikirim = findViewById(R.id.btn_dikirim);
         btnSelesai = findViewById(R.id.btn_selesai);
         btnBatal = findViewById(R.id.btn_batal);
+
+        //fragment
+        notVerifiedFragment = new NotVerifiedFragment();
+        packedFragment = new PackedFragment();
+        sentFragment = new SentFragment();
+        doneFragment = new DoneFragment();
+        cancelFragment = new CancelFragment();
+        manager = getSupportFragmentManager();
     }
 
     public void getProfile() {
@@ -91,7 +167,7 @@ public class ProfileActivity extends AppCompatActivity {
                     customerList = response.body();
                     assert customerList != null;
                     txtName.setText(customerList.get(0).getName());
-                    txtEmail.setText(email);
+                    txtEmail.setText(customerList.get(0).getUser().getEmail());
 
                 } else {
                     Log.e("Gagal", "Gagal");

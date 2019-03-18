@@ -29,8 +29,8 @@
 
         <TextView
             android:id="@+id/txt_judul"
-            android:padding="5dp"
             android:text="@string/rekomendasi"
+            android:padding="5dp"
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_alignParentStart="true"

@@ -15,7 +15,7 @@ import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.chat.ChatActivity;
 import com.d4ti.lapoutta.activity.notification.NotificationActivity;
 import com.d4ti.lapoutta.activity.profile.ProfileActivity;
-import com.d4ti.lapoutta.activity.store.MyStoreActivity;
+import com.d4ti.lapoutta.activity.store.SplashStoreActivity;
 import com.d4ti.lapoutta.adapter.ProductAdapter;
 import com.d4ti.lapoutta.adapter.SlideAdapter;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
@@ -34,6 +34,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imgStore, imgMessage, imgNotif, imgProfile;
+    private ImageView imgChart;
     private RecyclerView rv_product;
     private BaseApiService baseApiService;
     private AdapterViewFlipper adapterViewFlipper;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         imgStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MyStoreActivity.class));
+                startActivity(new Intent(getApplicationContext(), SplashStoreActivity.class));
             }
         });
 
@@ -77,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
             }
         });
+
+        imgChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+            }
+        });
     }
 
     public void initComponent(){
@@ -86,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
         adapterViewFlipper = findViewById(R.id.adapterViewFlipper);
         rv_product = findViewById(R.id.list_product);
         rv_product.setHasFixedSize(true);
+
         imgStore = findViewById(R.id.img_store);
         imgMessage = findViewById(R.id.img_message);
         imgNotif = findViewById(R.id.img_notif);
         imgProfile = findViewById(R.id.img_profile);
+        imgChart = findViewById(R.id.image_troli);
     }
 
     public void loadSlide(){
@@ -123,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     products = response.body().getProduct();
                     if (products.size() != 0){
-                        Log.i("Sukses", products.get(0).getName());
                         rv_product.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
                         ProductAdapter productAdapter = new ProductAdapter(getApplicationContext());
                         productAdapter.setProducts(products);

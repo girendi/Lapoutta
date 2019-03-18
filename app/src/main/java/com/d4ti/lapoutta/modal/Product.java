@@ -20,11 +20,11 @@ public class Product {
     @SerializedName("id_size")
     private int id_size;
     @SerializedName("id_store")
-    private int id_store;
+    private Store store;
     @SerializedName("id_product_status")
     private int id_product_status;
 
-    public Product(int id, String name, double price, int stock, String image, String description, int id_category, int id_size, int id_store, int id_product_status) {
+    public Product(int id, String name, double price, int stock, String image, String description, int id_category, int id_size, int id_product_status) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -33,7 +33,6 @@ public class Product {
         this.description = description;
         this.id_category = id_category;
         this.id_size = id_size;
-        this.id_store = id_store;
         this.id_product_status = id_product_status;
     }
 
@@ -101,19 +100,15 @@ public class Product {
         this.id_size = id_size;
     }
 
-    public int getId_store() {
-        return id_store;
-    }
-
-    public void setId_store(int id_store) {
-        this.id_store = id_store;
-    }
-
     public int getId_product_status() {
         return id_product_status;
     }
 
     public void setId_product_status(int id_product_status) {
         this.id_product_status = id_product_status;
+    }
+
+    public Store getStore() {
+        return store;
     }
 }

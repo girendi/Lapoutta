@@ -1,38 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.profile.ChangeProfileActivity">
+    android:background="@color/colorWhite"
+    tools:context=".activity.profile.ChangeProfileActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_change_profile"
+        android:background="@color/colorWhite"
+        app:titleTextColor="@color/colorBackground"
         android:layout_width="match_parent"
         android:layout_height="58dp">
-
-        <ImageView
-            android:id="@+id/img_setting"
-            android:src="@drawable/ic_settings"
-            android:layout_alignParentStart="true"
-            android:layout_margin="5dp"
-            android:layout_centerVertical="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:contentDescription="@string/todo" />
-
-        <TextView
-            android:id="@+id/txt_setting"
-            android:text="@string/profil_saya"
-            android:textColor="@color/colorHeader"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_toEndOf="@id/img_setting"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_profile"
@@ -54,6 +36,7 @@
     <EditText
         android:id="@+id/et_name"
         android:hint="@string/nama"
+        android:ems="10"
         android:layout_width="match_parent"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
@@ -73,6 +56,7 @@
     <EditText
         android:id="@+id/et_telepon"
         android:hint="@string/telepon"
+        android:ems="10"
         android:layout_width="match_parent"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
@@ -82,6 +66,8 @@
     <Button
         android:id="@+id/btn_simpan"
         android:hint="@string/simpan"
+        android:textColor="@color/colorInput"
+        android:background="@color/colorWhite"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

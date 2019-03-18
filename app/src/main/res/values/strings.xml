@@ -73,4 +73,8 @@
     <string name="username">Username</string>
     <string name="telepon">Telepon</string>
     <string name="simpan">Simpan</string>
+    <string name="splash_store">Anda Mempunyai Usaha \n Buka Toko Anda \n Disini Sekarang</string>
+    <string name="register_store">Daftar Toko</string>
+    <string name="data_empty">Data Belum Ada</string>
+    <string name="add_product">Tambah Product</string>
 </resources>

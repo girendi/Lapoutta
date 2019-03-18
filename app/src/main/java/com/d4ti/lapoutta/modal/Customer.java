@@ -24,6 +24,9 @@ public class Customer {
     @Expose
     private int id_role;
 
+    @SerializedName("id_user")
+    private User user;
+
     public Customer(int id, String name, String no_telp, String image, int id_role) {
         this.id = id;
         this.name = name;
@@ -33,6 +36,10 @@ public class Customer {
     }
 
     public Customer() {
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public int getId() {

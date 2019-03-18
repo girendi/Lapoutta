@@ -74,4 +74,8 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("detail/store/mobile")
     Call<List<Store>> detailStore(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("detail/store2/mobile")
+    Call<List<Store>> detailStore2(@Field("id_user") int id_user);
 }

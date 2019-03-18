@@ -275,7 +275,7 @@
             android:layout_height="58dp">
 
             <ImageView
-                android:id="@+id/img_troli"
+                android:id="@+id/img_chart"
                 android:layout_centerInParent="true"
                 android:src="@drawable/troli"
                 android:layout_width="24dp"
@@ -290,13 +290,14 @@
             android:layout_height="58dp">
 
             <Button
+                android:id="@+id/btn_buy"
                 android:text="@string/beli_sekarang"
                 android:textAllCaps="false"
-                android:padding="10dp"
+                android:layout_margin="5dp"
                 android:textColor="@color/colorInput"
                 android:background="@color/colorWhite"
                 android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>

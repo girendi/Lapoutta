@@ -3,11 +3,11 @@ package com.d4ti.lapoutta.activity.profile;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.d4ti.lapoutta.R;
@@ -31,7 +31,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
     private BaseApiService baseApiService;
     private int id;
 
-    private ImageView imgSetting;
     private CircleImageView imgProfile;
     private EditText et_name;
     private EditText et_telepon;
@@ -45,6 +44,12 @@ public class ChangeProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_profile);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_change_profile);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(R.string.profil_saya);
+
         if (!SaveSharedPreference.getLoggedStatus(this)){
             startActivity(new Intent(this, AuthActivity.class));
             finish();
@@ -54,14 +59,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
         initComponent();
         setData();
-
-        imgSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                finish();
-            }
-        });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +71,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
     private void initComponent() {
         baseApiService = UtilsApi.getAPIService();
         listCustomer = new ArrayList<>();
-        imgSetting = findViewById(R.id.img_setting);
         imgProfile = findViewById(R.id.img_profile);
         et_name = findViewById(R.id.et_name);
         et_telepon = findViewById(R.id.et_telepon);

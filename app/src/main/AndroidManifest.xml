@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".activity.store.AddStorieActivity"></activity>
+
+        <activity android:name=".activity.store.AddStorieActivity"/>
         <activity android:name=".activity.store.ChangeStoreActivity" />
         <activity android:name=".activity.store.RegisterStoreActivity" />
         <activity android:name=".activity.store.SplashStoreActivity" />
@@ -19,12 +20,16 @@
         <activity android:name=".activity.store.AddProductActivity" />
         <activity android:name=".activity.store.ProductActivity" />
         <activity android:name=".activity.store.MyStoreActivity" />
-        <activity android:name=".activity.notification.NotificationActivity" />
+        <activity android:name=".activity.notification.NotificationActivity"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity android:name=".activity.review.AddReviewActivity" />
         <activity android:name=".activity.review.ReviewActivity" />
-        <activity android:name=".activity.chat.ViewChatActivity" />
-        <activity android:name=".activity.chat.ChatActivity" />
-        <activity android:name=".activity.profile.ChangeProfileActivity" />
+        <activity android:name=".activity.chat.ViewChatActivity"
+            android:parentActivityName=".activity.chat.ChatActivity"/>
+        <activity android:name=".activity.chat.ChatActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.profile.ChangeProfileActivity"
+            android:parentActivityName=".activity.profile.ProfileActivity"/>
         <activity android:name=".activity.profile.ProfileActivity" />
         <activity android:name=".activity.RincianActivity" />
         <activity android:name=".activity.PembayaranActivity" />
@@ -34,7 +39,7 @@
         <activity android:name=".activity.MetodeActivity" />
         <activity android:name=".activity.checkout.OfflineActivity" />
         <activity android:name=".activity.checkout.OnlineActivity" />
-        <activity android:name=".activity.chartActivity" />
+        <activity android:name=".activity.ChartActivity"/>
         <activity android:name=".activity.DetailProductActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

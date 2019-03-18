@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.d4ti.lapoutta.R;
 
-public class chartActivity extends AppCompatActivity {
+public class ChartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
