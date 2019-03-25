@@ -77,4 +77,16 @@
     <string name="register_store">Daftar Toko</string>
     <string name="data_empty">Data Belum Ada</string>
     <string name="add_product">Tambah Product</string>
+    <string name="rp_0_0">Rp 0.0</string>
+    <string name="informasi">Informasi</string>
+    <string name="lanjutan">Lanjutan</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="store_address">Alamat Toko</string>
+    <string name="next">Lanjut</string>
+    <string name="nomor_ktp">Nomor KTP</string>
+    <string name="nomor_rekening">Nomor Rekening</string>
+    <string name="send">Kirim</string>
+    <string name="review_add_text">Tuliskan sesuatu tentang produk ini...</string>
+    <string name="title_notif">Title Notifikasi</string>
+    <string name="isi_notifikasi">Isi Notifikasi</string>
 </resources>

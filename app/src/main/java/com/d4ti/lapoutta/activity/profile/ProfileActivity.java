@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.AuthActivity;
 import com.d4ti.lapoutta.activity.chat.ChatActivity;
@@ -74,7 +75,6 @@ public class ProfileActivity extends AppCompatActivity {
         email = SaveSharedPreference.getEmail(this);
         getProfile();
         setFragment();
-
 
         imgSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,9 +165,15 @@ public class ProfileActivity extends AppCompatActivity {
             public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
                 if (response.isSuccessful()) {
                     customerList = response.body();
-                    assert customerList != null;
-                    txtName.setText(customerList.get(0).getName());
-                    txtEmail.setText(customerList.get(0).getUser().getEmail());
+                    if (!customerList.isEmpty()){
+                        txtName.setText(customerList.get(0).getName());
+                        txtEmail.setText(customerList.get(0).getUser().getEmail());
+                        if (!customerList.get(0).getImage().isEmpty()){
+                            Glide.with(ProfileActivity.this)
+                                    .load(customerList.get(0).getImage())
+                                    .into(imgProfile);
+                        }
+                    }
 
                 } else {
                     Log.e("Gagal", "Gagal");

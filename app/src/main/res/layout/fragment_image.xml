@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.registerStore.imageFragment">
+
+    <TextView
+        android:padding="10dp"
+        android:text="@string/nomor_ktp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_no_ktp"
+        android:padding="10dp"
+        android:hint="@string/nomor_ktp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/img_ktp"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="@string/todo" />
+
+    <TextView
+        android:padding="10dp"
+        android:text="@string/nomor_rekening"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_no_rek"
+        android:padding="10dp"
+        android:hint="@string/nomor_rekening"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/img_rek"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="@string/todo" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:text="@string/next"
+        android:background="@color/colorWhite"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -85,6 +85,7 @@ public class LoginFragment extends Fragment {
                                     SaveSharedPreference.setIdUser(getActivity(), id);
                                     SaveSharedPreference.setEmailUser(getActivity(), email);
                                     startActivity(new Intent(getActivity(), MainActivity.class));
+                                    getActivity().finish();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

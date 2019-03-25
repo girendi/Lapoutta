@@ -45,7 +45,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.txtNameProduct.setText(getProducts().get(position).getName());
         holder.txtPriceProduct.setText("Rp " + Double.toString(getProducts().get(position).getPrice()));
         Glide.with(context).load(getProducts().get(position).getImage()).into(holder.imgProduct);

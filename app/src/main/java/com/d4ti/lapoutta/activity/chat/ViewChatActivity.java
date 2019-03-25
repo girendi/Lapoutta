@@ -18,7 +18,7 @@ public class ViewChatActivity extends AppCompatActivity {
     private TextView txtDataEmpty;
     private RecyclerView rv_chat;
 
-    private int id;
+    private int id, id_receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class ViewChatActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("View Chat");
 
         id  = SaveSharedPreference.getIdUser(this);
-
+        id_receiver = getIntent().getIntExtra("ID_RECEIVER", 0);
         initComponent();
     }
 

@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.store.MyStoreActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        layout="@layout/header_other"
+        android:id="@+id/header_my_store"/>
+
+
+    <include
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:id="@+id/footer_store"
+        layout="@layout/footer_main"/>
+</RelativeLayout>

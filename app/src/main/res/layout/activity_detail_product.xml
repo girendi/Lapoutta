@@ -37,34 +37,11 @@
 
                 <TextView
                     android:id="@+id/txt_name_product"
-                    android:layout_weight="2"
                     android:text="@string/nama_produk"
                     android:layout_gravity="center"
                     android:textSize="15sp"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
-                <RelativeLayout
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    
-                    <TextView
-                        android:id="@+id/txt_rating"
-                        android:text="@string/rating"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/rating"
-                        android:layout_below="@id/txt_rating"
-                        android:text="@string/rating"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </RelativeLayout>
 
             </LinearLayout>
 
@@ -97,7 +74,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_pertanyaan"
-                android:layout_below="@id/txt_desc_product"
+                android:layout_below="@id/rl_toko"
                 android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -130,8 +107,8 @@
 
             <RelativeLayout
                 android:id="@+id/rl_toko"
-                android:layout_below="@id/rl_pertanyaan"
-                android:layout_marginTop="30dp"
+                android:layout_below="@id/txt_desc_product"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 
@@ -166,81 +143,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:ignore="RelativeOverlap" />
-
-                <LinearLayout
-                    android:layout_below="@id/txt_lokasi"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:layout_weight="3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/txt_jumlah_product"
-                            android:text="@string/_100"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/txt_product"
-                            android:text="@string/product"
-                            android:layout_below="@id/txt_jumlah_product"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_weight="3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/txt_jumlah_rating"
-                            android:text="@string/_100"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/txt_nrating"
-                            android:text="@string/rating"
-                            android:layout_below="@id/txt_jumlah_rating"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_weight="3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/txt_jumlah_review"
-                            android:text="@string/_100"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/txt_review"
-                            android:text="@string/review"
-                            android:layout_below="@id/txt_jumlah_review"
-                            android:layout_centerHorizontal="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
             </RelativeLayout>
 
         </RelativeLayout>

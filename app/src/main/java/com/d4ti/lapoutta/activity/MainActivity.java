@@ -108,11 +108,13 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Slide>> call, Response<List<Slide>> response) {
                 if (response.isSuccessful()){
                     slides = response.body();
-                    SlideAdapter adapter = new SlideAdapter(getApplicationContext(), slides);
-                    adapterViewFlipper.setAdapter(adapter);
-                    adapterViewFlipper.setFlipInterval(1000);
-                    adapterViewFlipper.startFlipping();
-                    Log.i("Sukses", slides.get(0).getName());
+                    if (!slides.isEmpty()){
+                        SlideAdapter adapter = new SlideAdapter(getApplicationContext(), slides);
+                        adapterViewFlipper.setAdapter(adapter);
+                        adapterViewFlipper.setFlipInterval(5000);
+                        adapterViewFlipper.startFlipping();
+                        Log.i("Sukses", slides.get(0).getName());
+                    }
                 }else {
                     Log.e("Error", response.message());
                 }

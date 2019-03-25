@@ -1,6 +1,7 @@
 package com.d4ti.lapoutta.activity.store;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ public class SplashStoreActivity extends AppCompatActivity {
         }
         id  = SaveSharedPreference.getIdUser(this);
         initComponent();
-        //checkStore();
+        checkStore();
 
         imgStore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,25 +106,23 @@ public class SplashStoreActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     storeList = response.body();
                     if (storeList.isEmpty()){
-                        Log.i("Message", "Is Empty");
-                    }else{
-                        Log.i("Message", "Is Not Empty");
+                        Toast.makeText(SplashStoreActivity.this, "Store Belum Terdaftar", Toast.LENGTH_SHORT).show();
+                        btn_register.setVisibility(View.VISIBLE);
+                    } else{
+                        SaveSharedPreference.setIdStore(SplashStoreActivity.this, storeList.get(0).getId());
+                        if (storeList.get(0).getId() == 1){
+                            Toast.makeText(SplashStoreActivity.this, "Store Telah Terdaftar", Toast.LENGTH_SHORT).show();
+                            btn_register.setVisibility(View.INVISIBLE);
+                            Intent intent = new Intent(getApplicationContext(), MyStoreActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Intent intent = new Intent(getApplicationContext(), RegisterStoreActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
-//                    if (storeList.size() != 0){
-//                        Toast.makeText(SplashStoreActivity.this, "Store Telah Terdaftar", Toast.LENGTH_SHORT).show();
-//                        btn_register.setVisibility(View.INVISIBLE);
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Intent intent = new Intent(getApplicationContext(), MyStoreActivity.class);
-//                                startActivity(intent);
-//                                finish();
-//                            }
-//                        }, 500);
-//                    }else{
-//                        Toast.makeText(SplashStoreActivity.this, "Store Belum Terdaftar", Toast.LENGTH_SHORT).show();
-//                        btn_register.setVisibility(View.VISIBLE);
-//                    }
+
                 }else {
                     Toast.makeText(SplashStoreActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                     btn_register.setVisibility(View.VISIBLE);

@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/header_store"
-        layout="@layout/header_main"/>
+        layout="@layout/header_other"/>
 
     <RelativeLayout
         android:id="@+id/rl_toko"
