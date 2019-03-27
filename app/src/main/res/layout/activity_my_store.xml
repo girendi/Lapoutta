@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.store.MyStoreActivity">
@@ -11,6 +12,123 @@
         layout="@layout/header_other"
         android:id="@+id/header_my_store"/>
 
+    <RelativeLayout
+        android:id="@+id/rl_toko"
+        android:layout_margin="10dp"
+        android:layout_below="@id/header_my_store"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_toko"
+            android:src="@drawable/logo"
+            android:layout_width="68dp"
+            android:layout_height="68dp" />
+
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/txt_name_store"
+            android:textSize="18sp"
+            android:text="@string/lapoutta"
+            android:layout_toEndOf="@id/image_toko"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_change_store"
+            android:text="@string/change_store"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/txt_lokasi"
+            android:layout_below="@id/txt_name_store"
+            android:text="@string/lokasi"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/image_toko"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_below="@id/txt_lokasi"
+            android:text="@string/deskripsi"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/image_toko"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txt_view_stori"
+            android:layout_below="@id/txt_desc"
+            android:text="@string/storie"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_product"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="vertical"
+        android:layout_below="@id/rl_toko"
+        android:layout_above="@id/footer_store"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/sp_store"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+            </Spinner>
+
+            <Button
+                android:id="@+id/btn_add_product"
+                android:text="@string/add_product"
+                android:textAllCaps="false"
+                android:layout_margin="5dp"
+                android:background="@color/colorWhite"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/data_empty"
+                android:layout_centerInParent="true"
+                android:text="@string/data_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <include
         android:layout_alignParentBottom="true"

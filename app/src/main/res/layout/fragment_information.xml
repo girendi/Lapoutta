@@ -7,56 +7,21 @@
     tools:context=".fragment.registerStore.InformationFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:text="@string/nama"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <EditText
-        android:hint="@string/nama"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/et_name_store"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:text="@string/nomor_telepon"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:hint="@string/nomor_telepon"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/et_telp_store"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:text="@string/alamat"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:hint="@string/store_address"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/et_address_store"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/cb_information"
+        android:layout_margin="5dp"
+        android:text="@string/deskripsi"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:layout_gravity="center"
-        android:text="@string/next"
-        android:background="@color/colorWhite"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:id="@+id/btn_agree"
+        android:text="@string/agree"
         android:textAllCaps="false"
+        android:background="@color/colorWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

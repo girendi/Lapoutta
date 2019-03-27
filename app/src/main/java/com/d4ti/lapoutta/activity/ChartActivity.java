@@ -1,5 +1,6 @@
 package com.d4ti.lapoutta.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +42,22 @@ public class ChartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chart);
         initComponent();
         setData();
+        txt_header.setText("Keranjang Saya");
+
+        imgLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+        });
+
+        btn_bought.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void initComponent() {
@@ -52,7 +69,6 @@ public class ChartActivity extends AppCompatActivity {
         txt_data_empty = findViewById(R.id.data_empty);
         btn_bought = findViewById(R.id.btn_bought);
         txt_header = findViewById(R.id.txt_header);
-        txt_header.setText("Keranjang Saya");
     }
 
     private void setData() {
