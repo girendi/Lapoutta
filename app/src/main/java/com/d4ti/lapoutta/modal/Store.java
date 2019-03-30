@@ -11,21 +11,18 @@ public class Store {
     private String no_telp;
     @SerializedName("address")
     private String address;
+    @SerializedName("no_KTP")
+    private String no_KTP;
+    @SerializedName("no_Rekening")
+    private String no_Rekening;
+    @SerializedName("longitude")
+    private String longitude;
     @SerializedName("id_customer")
     private int id_customer;
-    @SerializedName("id_status")
-    private int id_status;
+    @SerializedName("id_store_status")
+    private int id_store_status;
 
     public Store() {
-    }
-
-    public Store(int id, String name, String no_telp, String address, int id_customer, int id_status) {
-        this.id = id;
-        this.name = name;
-        this.no_telp = no_telp;
-        this.address = address;
-        this.id_customer = id_customer;
-        this.id_status = id_status;
     }
 
     public int getId() {
@@ -60,6 +57,30 @@ public class Store {
         this.address = address;
     }
 
+    public String getNo_KTP() {
+        return no_KTP;
+    }
+
+    public void setNo_KTP(String no_KTP) {
+        this.no_KTP = no_KTP;
+    }
+
+    public String getNo_Rekening() {
+        return no_Rekening;
+    }
+
+    public void setNo_Rekening(String no_Rekening) {
+        this.no_Rekening = no_Rekening;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     public int getId_customer() {
         return id_customer;
     }
@@ -68,11 +89,11 @@ public class Store {
         this.id_customer = id_customer;
     }
 
-    public int getId_status() {
-        return id_status;
+    public int getId_store_status() {
+        return id_store_status;
     }
 
-    public void setId_status(int id_status) {
-        this.id_status = id_status;
+    public void setId_store_status(int id_store_status) {
+        this.id_store_status = id_store_status;
     }
 }

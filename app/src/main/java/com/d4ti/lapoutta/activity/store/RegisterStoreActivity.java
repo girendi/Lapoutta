@@ -17,8 +17,10 @@ import android.widget.Toast;
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
+import com.d4ti.lapoutta.fragment.registerStore.CreateStoreFragment;
 import com.d4ti.lapoutta.fragment.registerStore.InformationFragment;
 import com.d4ti.lapoutta.modal.Store;
+import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 
 import java.util.List;
 
@@ -40,7 +42,6 @@ public class RegisterStoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_store);
         checkMaps();
         initComponent();
-        setData();
     }
 
     private void checkMaps() {
@@ -67,7 +68,11 @@ public class RegisterStoreActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        if (id_store!=0){
+        if (id_store==0){
+            InformationFragment informationFragment = new InformationFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.frameLayout_register_store, informationFragment).commit();
+        }else{
             baseApiService.detailStore(id_store).enqueue(new Callback<List<Store>>() {
                 @SuppressLint("SetTextI18n")
                 @Override
@@ -82,6 +87,9 @@ public class RegisterStoreActivity extends AppCompatActivity {
                             }else if (stores.get(0).getId() == 3){
                                 txtStatus.setText("Status Store Ditolak");
                             }
+                            CreateStoreFragment createStoreFragment = new CreateStoreFragment();
+                            FragmentManager manager = getSupportFragmentManager();
+                            manager.beginTransaction().replace(R.id.frameLayout_register_store, createStoreFragment).commit();
                         }
                     }
                 }
@@ -95,7 +103,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
     }
 
     private void initComponent() {
-        id_store = getIntent().getIntExtra("ID_STORE", 0);
+        id_store = SaveSharedPreference.getIdStore(this);
         baseApiService = UtilsApi.getAPIService();
         btnInfo = findViewById(R.id.btn_information);
         btnNext = findViewById(R.id.btn_lanjutan);
@@ -106,8 +114,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        InformationFragment informationFragment = new InformationFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.frameLayout_register_store, informationFragment).commit();
+        Log.i("ID_Store", Integer.toString(id_store));
+        setData();
     }
 }

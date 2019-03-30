@@ -17,19 +17,20 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".activity.checkout.AngkotActivity"></activity>
+        <activity android:name=".activity.store.ChangeProductActivity"></activity>
+        <activity android:name=".activity.checkout.AngkotActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOU_KEY" />
+            android:value="AIzaSyDjW7gI2pqfSoois-vrxDE821OUXlJkG3g" />
 
-        <activity android:name=".activity.store.AddStorieActivity" />
+        <activity
+            android:name=".activity.store.AddStorieActivity"
+            android:parentActivityName=".activity.store.MyStoreActivity" />
         <activity android:name=".activity.store.ChangeStoreActivity" />
         <activity android:name=".activity.store.RegisterStoreActivity" />
         <activity android:name=".activity.store.SplashStoreActivity" />
-        <activity android:name=".activity.store.TransactionActivity" />
         <activity android:name=".activity.store.AddProductActivity" />
-        <activity android:name=".activity.store.ProductActivity" />
         <activity android:name=".activity.store.MyStoreActivity" />
         <activity
             android:name=".activity.notification.NotificationActivity"
@@ -50,7 +51,7 @@
         <activity android:name=".activity.PembayaranActivity" />
         <activity
             android:name=".activity.StoriActivity"
-            android:parentActivityName=".activity.StoreActivity" />
+            android:parentActivityName=".activity.DetailProductActivity" />
         <activity
             android:name=".activity.LokasiActivity"
             android:parentActivityName=".activity.StoreActivity" />

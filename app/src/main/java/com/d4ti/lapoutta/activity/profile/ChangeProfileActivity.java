@@ -131,7 +131,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
     private void saveData(){
 
-        baseApiService.updateProfile(et_name.getText().toString(), et_telepon.getText().toString())
+        baseApiService.updateProfile(id, et_name.getText().toString(), et_telepon.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

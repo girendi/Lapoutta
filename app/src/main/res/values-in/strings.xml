@@ -90,11 +90,19 @@
     <string name="review_add_text">Tuliskan sesuatu tentang produk ini ...</string>
     <string name="title_notif">Title Notifikasi</string>
     <string name="isi_notifikasi">Isi Notifikasi</string>
-    <string name="change_store">Ubah Toko</string>
     <string name="storie">Stori</string>
     <string name="name_store">Nama Toko</string>
     <string name="npwp">NPWP</string>
     <string name="agree">Setuju</string>
     <string name="add">Tambah</string>
     <string name="add_storie">Tambah Stori</string>
+    <string name="tambah_produk">Tambah Produk</string>
+    <string name="gambar_produk">Gambar Produk</string>
+    <string name="product_name">Nama Produk</string>
+    <string name="product_price">Harga Produk</string>
+    <string name="product_stock">Stok Produk</string>
+    <string-array name="my_store">
+        <item>Produk</item>
+        <item>Transaksi</item>
+    </string-array>
 </resources>

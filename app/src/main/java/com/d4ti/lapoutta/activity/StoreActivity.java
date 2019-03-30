@@ -36,7 +36,7 @@ public class StoreActivity extends AppCompatActivity {
 
     private ImageView imgLStore, imgMessage, imgNotif, imgProfile, imgChart, imgHome;
     private CircleImageView imgStore;
-    private TextView txtNameStore, txtLocation, txtViewLocation, txtDesc, txtViewStore, txtDataEmpty, txtHeader;
+    private TextView txtNameStore, txtLocation, txtViewLocation, txtDesc, txtDataEmpty, txtHeader;
     private RecyclerView rv_product;
 
     private BaseApiService baseApiService;
@@ -93,14 +93,9 @@ public class StoreActivity extends AppCompatActivity {
         txtViewLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LokasiActivity.class));
-            }
-        });
-
-        txtViewStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), StoriActivity.class));
+                Intent intentStori = new Intent(getApplicationContext(), LokasiActivity.class);
+                intentStori.putExtra("ID_STORE", id_store);
+                startActivity(intentStori);
             }
         });
     }
@@ -112,7 +107,6 @@ public class StoreActivity extends AppCompatActivity {
         txtLocation = findViewById(R.id.txt_lokasi);
         txtDesc = findViewById(R.id.txt_desc);
         txtViewLocation = findViewById(R.id.txt_view_location);
-        txtViewStore = findViewById(R.id.txt_view_stori);
         txtDataEmpty = findViewById(R.id.data_empty);
         txtHeader = findViewById(R.id.txt_header);
         rv_product = findViewById(R.id.list_product);

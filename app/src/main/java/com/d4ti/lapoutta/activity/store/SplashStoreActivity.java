@@ -46,45 +46,46 @@ public class SplashStoreActivity extends AppCompatActivity {
         if (SaveSharedPreference.getLoggedStatus(this)!=true){
             startActivity(new Intent(this, AuthActivity.class));
             finish();
+        }else{
+            id  = SaveSharedPreference.getIdUser(this);
+            initComponent();
+            checkStore();
+
+            imgStore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), SplashStoreActivity.class));
+                }
+            });
+
+            imgMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+                }
+            });
+
+            imgNotif.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                }
+            });
+
+            imgProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                }
+            });
+
+            btn_register.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), RegisterStoreActivity.class));
+                }
+            });
         }
-        id  = SaveSharedPreference.getIdUser(this);
-        initComponent();
-        checkStore();
-
-        imgStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), SplashStoreActivity.class));
-            }
-        });
-
-        imgMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
-            }
-        });
-
-        imgNotif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-            }
-        });
-
-        imgProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-            }
-        });
-
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RegisterStoreActivity.class));
-            }
-        });
     }
 
     private void initComponent() {
@@ -106,16 +107,21 @@ public class SplashStoreActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     storeList = response.body();
                     if (storeList.isEmpty()){
+                        SaveSharedPreference.setIdStore(SplashStoreActivity.this, 0);
                         Toast.makeText(SplashStoreActivity.this, "Store Belum Terdaftar", Toast.LENGTH_SHORT).show();
                         btn_register.setVisibility(View.VISIBLE);
                     } else{
                         SaveSharedPreference.setIdStore(SplashStoreActivity.this, storeList.get(0).getId());
-                        if (storeList.get(0).getId() == 1){
-                            Toast.makeText(SplashStoreActivity.this, "Store Telah Terdaftar", Toast.LENGTH_SHORT).show();
+                        if (storeList.get(0).getId_store_status() == 1){
                             btn_register.setVisibility(View.INVISIBLE);
-                            Intent intent = new Intent(getApplicationContext(), MyStoreActivity.class);
-                            startActivity(intent);
-                            finish();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(getApplicationContext(), MyStoreActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }, 1000);
                         }else{
                             Intent intent = new Intent(getApplicationContext(), RegisterStoreActivity.class);
                             startActivity(intent);

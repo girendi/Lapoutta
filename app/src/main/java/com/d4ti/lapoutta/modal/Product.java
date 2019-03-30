@@ -16,24 +16,15 @@ public class Product {
     @SerializedName("description")
     private String description;
     @SerializedName("id_category")
-    private int id_category;
+    private Category category;
     @SerializedName("id_size")
     private int id_size;
     @SerializedName("id_store")
     private Store store;
     @SerializedName("id_product_status")
-    private int id_product_status;
+    private ProductStatus productStatus;
 
-    public Product(int id, String name, double price, int stock, String image, String description, int id_category, int id_size, int id_product_status) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-        this.image = image;
-        this.description = description;
-        this.id_category = id_category;
-        this.id_size = id_size;
-        this.id_product_status = id_product_status;
+    public Product() {
     }
 
     public int getId() {
@@ -84,14 +75,6 @@ public class Product {
         this.description = description;
     }
 
-    public int getId_category() {
-        return id_category;
-    }
-
-    public void setId_category(int id_category) {
-        this.id_category = id_category;
-    }
-
     public int getId_size() {
         return id_size;
     }
@@ -100,15 +83,15 @@ public class Product {
         this.id_size = id_size;
     }
 
-    public int getId_product_status() {
-        return id_product_status;
-    }
-
-    public void setId_product_status(int id_product_status) {
-        this.id_product_status = id_product_status;
+    public Category getCategory() {
+        return category;
     }
 
     public Store getStore() {
         return store;
+    }
+
+    public ProductStatus getProductStatus() {
+        return productStatus;
     }
 }

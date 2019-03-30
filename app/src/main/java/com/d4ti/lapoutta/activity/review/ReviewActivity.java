@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.adapter.ReviewAdapter;
@@ -24,6 +26,7 @@ public class ReviewActivity extends AppCompatActivity {
 
     private RecyclerView rvReview;
     private BaseApiService baseApiService;
+    private TextView tvDataEmpty;
     private List<Review> reviews;
     private int id_product;
 
@@ -49,6 +52,7 @@ public class ReviewActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     reviews = response.body();
                     if (!reviews.isEmpty()){
+                        tvDataEmpty.setVisibility(View.INVISIBLE);
                         rvReview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         ReviewAdapter reviewAdapter = new ReviewAdapter(getApplicationContext());
                         reviewAdapter.setReviews(reviews);
@@ -66,6 +70,7 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void initComponent() {
         id_product = getIntent().getIntExtra("ID_PRODUCT", 0);
+        tvDataEmpty = findViewById(R.id.data_empty);
         baseApiService = UtilsApi.getAPIService();
         reviews = new ArrayList<>();
         rvReview = findViewById(R.id.rv_review);

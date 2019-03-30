@@ -8,21 +8,13 @@ public class Chart {
     @SerializedName("quantity")
     private int quantity;
     @SerializedName("is_active")
-    private boolean is_active;
+    private int is_active;
     @SerializedName("id_customer")
     private int id_customer;
     @SerializedName("id_product")
     private int id_product;
 
     public Chart() {
-    }
-
-    public Chart(int id, int quantity, boolean is_active, int id_customer, int id_product) {
-        this.id = id;
-        this.quantity = quantity;
-        this.is_active = is_active;
-        this.id_customer = id_customer;
-        this.id_product = id_product;
     }
 
     public int getId() {
@@ -41,11 +33,11 @@ public class Chart {
         this.quantity = quantity;
     }
 
-    public boolean isIs_active() {
+    public int isIs_active() {
         return is_active;
     }
 
-    public void setIs_active(boolean is_active) {
+    public void setIs_active(int is_active) {
         this.is_active = is_active;
     }
 

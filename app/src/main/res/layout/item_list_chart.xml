@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <CheckBox
         android:id="@+id/cb_chart"
@@ -29,6 +29,7 @@
 
         <ImageView
             android:id="@+id/img_product"
+            android:src="@drawable/logo"
             android:layout_marginStart="10dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -45,32 +46,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/txt_count_product"
-                android:text="@string/_100"
-                android:layout_below="@id/txt_name_product"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_below="@id/txt_count_product"
+                android:layout_below="@id/txt_name_product"
                 android:gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <ImageButton
-                    android:id="@+id/img_btn_add"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:contentDescription="@string/todo"/>
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/btn_quantity"
+                    app:textSize="8sp"
+                    app:backGroundColor="@color/colorBackground"
+                    app:initialNumber="1"
+                    app:finalNumber="100"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp">
 
-                <ImageButton
-                    android:id="@+id/img_btn_decrease"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:contentDescription="@string/todo"/>
+                </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
             </LinearLayout>
 
         </RelativeLayout>
@@ -93,10 +85,11 @@
 
         <ImageButton
             android:id="@+id/btn_close"
+            android:src="@mipmap/ic_close"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:contentDescription="@string/todo" />
 
     </RelativeLayout>

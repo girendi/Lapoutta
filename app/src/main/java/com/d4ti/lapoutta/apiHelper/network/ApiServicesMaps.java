@@ -1,6 +1,6 @@
 package com.d4ti.lapoutta.apiHelper.network;
 
-import com.d4ti.lapoutta.modal.maps.ResponseRoute;
+import com.d4ti.lapoutta.modal.response.ResponseRoute;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

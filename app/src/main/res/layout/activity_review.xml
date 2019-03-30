@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".activity.review.ReviewActivity">
 
     <android.support.v7.widget.Toolbar
@@ -16,7 +16,15 @@
         android:layout_height="58dp">
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/data_empty"
+        android:text="@string/data_empty"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/toolbar_review"
         android:id="@+id/rv_review"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -24,4 +32,4 @@
 
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</RelativeLayout>

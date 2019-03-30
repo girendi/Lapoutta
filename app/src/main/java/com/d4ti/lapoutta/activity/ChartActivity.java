@@ -16,6 +16,7 @@ import com.d4ti.lapoutta.adapter.ChartAdapter;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
 import com.d4ti.lapoutta.modal.Chart;
+import com.d4ti.lapoutta.modal.DetailTransaction;
 import com.d4ti.lapoutta.modal.Product;
 import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 
@@ -28,9 +29,10 @@ import retrofit2.Response;
 public class ChartActivity extends AppCompatActivity {
 
     private ImageView imgLogo;
-    private TextView txt_header, txt_data_empty, txt_total_price;
+    private TextView txt_header, txt_data_empty;
+    public TextView txt_total_price;
     private Button btn_bought;
-    private RecyclerView rv_chart;
+    public RecyclerView rv_chart;
     private BaseApiService baseApiService;
     private int id;
     private double total_price = 0;
@@ -55,7 +57,30 @@ public class ChartActivity extends AppCompatActivity {
         btn_bought.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkout();
+            }
+        });
+    }
 
+    private void checkout() {
+        baseApiService.checkout(id).enqueue(new Callback<List<DetailTransaction>>() {
+            @Override
+            public void onResponse(Call<List<DetailTransaction>> call, Response<List<DetailTransaction>> response) {
+                if (response.isSuccessful()){
+                    List<DetailTransaction> detailTransactions = response.body();
+                    if (!detailTransactions.isEmpty()){
+                        int id_transaction = detailTransactions.get(0).getTransaction().getId();
+                        Intent intent = new Intent(getApplicationContext(), MetodeActivity.class);
+                        intent.putExtra("ID_TRANSACTION", id_transaction);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DetailTransaction>> call, Throwable t) {
+                t.printStackTrace();
             }
         });
     }
@@ -80,32 +105,33 @@ public class ChartActivity extends AppCompatActivity {
                     if (!charts.isEmpty()){
                         txt_data_empty.setVisibility(View.INVISIBLE);
                         rv_chart.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        ChartAdapter chartAdapter = new ChartAdapter(getApplicationContext());
+                        ChartAdapter chartAdapter = new ChartAdapter(ChartActivity.this);
                         chartAdapter.setCharts(charts);
                         rv_chart.setAdapter(chartAdapter);
 
                         for (int i = 0; i < charts.size(); i++){
                             final int quantity = charts.get(i).getQuantity();
-                            baseApiService.detailProduct(charts.get(i).getId_product()).enqueue(new Callback<List<Product>>() {
-                                @Override
-                                public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                                    if (response.isSuccessful()){
-                                        List<Product> list = response.body();
-                                        if (!list.isEmpty()){
-                                            total_price = total_price + (quantity * list.get(0).getPrice());
+                            if (charts.get(i).isIs_active() == 1){
+                                baseApiService.detailProduct(charts.get(i).getId_product()).enqueue(new Callback<List<Product>>() {
+                                    @Override
+                                    public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                                        if (response.isSuccessful()){
+                                            List<Product> list = response.body();
+                                            if (!list.isEmpty()){
+                                                total_price = total_price + (quantity * list.get(0).getPrice());
+                                                Log.i("Price", Double.toString(total_price));
+                                                txt_total_price.setText(Double.toString(total_price));
+                                            }
                                         }
                                     }
-                                }
 
-                                @Override
-                                public void onFailure(Call<List<Product>> call, Throwable t) {
-                                    Log.e("Error Message", t.getMessage());
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                                        Log.e("Error Message", t.getMessage());
+                                    }
+                                });
+                            }
                         }
-
-                        txt_total_price.setText(Double.toString(total_price));
-
                     }
                 }
             }

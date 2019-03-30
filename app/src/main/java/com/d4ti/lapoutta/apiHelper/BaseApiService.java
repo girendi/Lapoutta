@@ -1,8 +1,10 @@
 package com.d4ti.lapoutta.apiHelper;
 
+import com.d4ti.lapoutta.modal.Blog;
 import com.d4ti.lapoutta.modal.Chart;
 import com.d4ti.lapoutta.modal.Chat;
 import com.d4ti.lapoutta.modal.Customer;
+import com.d4ti.lapoutta.modal.DetailTransaction;
 import com.d4ti.lapoutta.modal.Notif;
 import com.d4ti.lapoutta.modal.Product;
 import com.d4ti.lapoutta.modal.Review;
@@ -42,10 +44,10 @@ public interface BaseApiService {
     @GET("list/slide")
     Call<List<Slide>> getSlide();
 
-    @Multipart
     @FormUrlEncoded
     @POST("change/profile/mobile")
-    Call<ResponseBody> updateProfile(@Field("name") String name,
+    Call<ResponseBody> updateProfile(@Field("id") int id,
+                                     @Field("name") String name,
                                      @Field("no_telp") String no_telp);
 
     @Multipart
@@ -60,15 +62,22 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("create/product")
-    Call<ResponseBody> createProduct(@Field("name") String name,
+    Call<Product> createProduct(@Field("name") String name,
                                      @Field("price") double price,
                                      @Field("stock") int stock,
-                                     @Field("image") String image,
                                      @Field("description") String description,
                                      @Field("id_category") int id_category,
                                      @Field("id_size") int id_size,
                                      @Field("id_store") int id_store,
                                      @Field("id_product_status") int id_product_status);
+
+    @FormUrlEncoded
+    @POST("update/product")
+    Call<Product> updateProduct(@Field("id") int id,
+                                @Field("name") String name,
+                                @Field("price") double price,
+                                @Field("stock") int stock,
+                                @Field("description") String description);
 
     @GET("list/product/mobile")
     Call<ProductResponse> getProduct();
@@ -83,10 +92,23 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("store")
-    Call<ResponseBody> createStore(@Field("name") String name,
+    Call<Store> createStore(@Field("name") String name,
                                    @Field("no_telp") String no_telp,
                                    @Field("address") String address,
+                                   @Field("no_KTP") String no_KTP,
+                                   @Field("no_Rekening") String no_Rekening,
+                                   @Field("longitude") String longitude,
                                    @Field("id_customer") int id_customer);
+
+    @FormUrlEncoded
+    @POST("update/store")
+    Call<List<Store>> updateStore(@Field("id_customer") int id_customer,
+                                  @Field("name") String name,
+                                  @Field("no_telp") String no_telp,
+                                  @Field("address") String address,
+                                  @Field("no_KTP") String no_KTP,
+                                  @Field("no_Rekening") String no_Rekening,
+                                  @Field("longitude") String longitude);
 
     @FormUrlEncoded
     @POST("detail/store/mobile")
@@ -139,4 +161,25 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("delete/cart")
     Call<ResponseBody> deleteChart(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("list/blog")
+    Call<List<Blog>> getListBlog(@Field("id_product") int id_product);
+
+    @FormUrlEncoded
+    @POST("create/blog")
+    Call<ResponseBody> createBlog(@Field("id_store") int id_store,
+                                  @Field("type") int type,
+                                  @Field("body") String body);
+
+    @FormUrlEncoded
+    @POST("belisekarang")
+    Call<List<DetailTransaction>> buyNow(@Field("id_customer") int id_customer,
+                                         @Field("quantity") int quantity,
+                                         @Field("id_product") int id_product);
+
+    @FormUrlEncoded
+    @POST("checkout")
+    Call<List<DetailTransaction>> checkout(@Field("id_customer") int id_customer);
+
 }

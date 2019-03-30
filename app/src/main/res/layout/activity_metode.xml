@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,73 +10,84 @@
         android:id="@+id/header_metode"
         layout="@layout/header_other"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_below="@id/header_metode"
-        android:id="@+id/ll_online"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
+        android:layout_above="@id/footer_metode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:gravity="center"
-            android:text="@string/kirim_online"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_online"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:text="@string/mengirimkan_pesanan_anda_ketempat_yang_anda_inginkan"
-            android:padding="10dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:gravity="center"
+                    android:text="@string/kirim_online"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/btn_online"
-            android:text="@string/kirim_online"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorBackground"
-            android:layout_margin="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:text="@string/mengirimkan_pesanan_anda_ketempat_yang_anda_inginkan"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/btn_online"
+                    android:text="@string/kirim_online"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorBackground"
+                    android:layout_margin="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_below="@id/ll_online"
-        android:id="@+id/ll_offline"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            </LinearLayout>
 
-        <TextView
-            android:gravity="center"
-            android:text="@string/kirim_offline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/ll_offline"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:text="@string/anda_dapat_mengambil_pesanan_langsung_ke_lokasi_penjual"
-            android:padding="10dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:gravity="center"
+                    android:text="@string/kirim_offline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/btn_offline"
-            android:text="@string/kirim_offline"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorBackground"
-            android:layout_margin="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:text="@string/anda_dapat_mengambil_pesanan_langsung_ke_lokasi_penjual"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/btn_offline"
+                    android:text="@string/kirim_offline"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorBackground"
+                    android:layout_margin="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
     <include
         android:layout_alignParentBottom="true"

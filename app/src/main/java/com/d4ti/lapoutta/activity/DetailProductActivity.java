@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.chat.ViewChatActivity;
 import com.d4ti.lapoutta.activity.review.ReviewActivity;
@@ -22,6 +23,7 @@ import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
 import com.d4ti.lapoutta.modal.Chart;
 import com.d4ti.lapoutta.modal.Customer;
+import com.d4ti.lapoutta.modal.DetailTransaction;
 import com.d4ti.lapoutta.modal.Product;
 import com.d4ti.lapoutta.modal.Review;
 import com.d4ti.lapoutta.modal.Store;
@@ -30,6 +32,7 @@ import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +41,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private ImageView imgLogo, imgTroli, imgToko, imgChart, imgMessage;
     private Button btnBuy;
-    private TextView txtHeader, txtName, txtPrice, txtDesc, txtToko, txtLokasi, txtNToko, txtNext;
+    private TextView txtHeader, txtName, txtPrice, txtDesc, txtToko, txtLokasi, txtNToko, txtNext, txtViewBlog;
 
     private BaseApiService baseApiService;
     private AdapterViewFlipper adapterViewFlipper;
@@ -47,6 +50,8 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private List<Product> products;
     private List<Review> reviews;
+
+    private ElegantNumberButton btn_quantity;
 
     private int id_product, id_store, id_customer, id_current_user;
 
@@ -103,9 +108,7 @@ public class DetailProductActivity extends AppCompatActivity {
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToChart();
-                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
-                finish();
+                buyNow();
             }
         });
 
@@ -116,6 +119,47 @@ public class DetailProductActivity extends AppCompatActivity {
                 intent.putExtra("ID_PRODUCT", id_product);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        txtViewBlog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), StoriActivity.class);
+                intent.putExtra("ID_PRODUCT", id_product);
+                startActivity(intent);
+            }
+        });
+
+        txtLokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentStore = new Intent(getApplicationContext(), LokasiActivity.class);
+                intentStore.putExtra("ID_STORE", id_store);
+                startActivity(intentStore);
+            }
+        });
+    }
+
+    private void buyNow() {
+        baseApiService.buyNow(id_current_user, Integer.parseInt(btn_quantity.getNumber()), id_product).enqueue(new Callback<List<DetailTransaction>>() {
+            @Override
+            public void onResponse(Call<List<DetailTransaction>> call, Response<List<DetailTransaction>> response) {
+                if (response.isSuccessful()){
+                    List<DetailTransaction> detailTransactions = response.body();
+                    if (!detailTransactions.isEmpty()){
+                        int id_transaction = detailTransactions.get(0).getTransaction().getId();
+                        Intent intent = new Intent(getApplicationContext(), MetodeActivity.class);
+                        intent.putExtra("ID_TRANSACTION", id_transaction);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DetailTransaction>> call, Throwable t) {
+                t.printStackTrace();
             }
         });
     }
@@ -134,6 +178,7 @@ public class DetailProductActivity extends AppCompatActivity {
         imgToko = findViewById(R.id.image_toko);
         imgMessage = findViewById(R.id.img_message);
 
+        txtViewBlog = findViewById(R.id.txt_view_blog);
         txtHeader = findViewById(R.id.txt_header);
         txtName = findViewById(R.id.txt_name_product);
         txtPrice = findViewById(R.id.txt_price_product);
@@ -144,6 +189,8 @@ public class DetailProductActivity extends AppCompatActivity {
         txtNext = findViewById(R.id.txt_next);
 
         btnBuy = findViewById(R.id.btn_buy);
+
+        btn_quantity = findViewById(R.id.btn_quantity);
 
         rv_review = findViewById(R.id.rv_review);
 

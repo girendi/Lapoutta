@@ -58,17 +58,17 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@string/npwp"
+                android:text="@string/nomor_rekening"
                 android:padding="10dp"
                 android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:hint="@string/npwp"
+                android:hint="@string/nomor_rekening"
                 android:padding="10dp"
                 android:layout_marginBottom="5dp"
-                android:id="@+id/et_npwp"
+                android:id="@+id/et_no_rek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -79,41 +79,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:elevation="1dp"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="15dp"
-                android:background="@android:color/white">
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:scrollbars="none"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_location"
-                        android:layout_width="wrap_content"
-                        android:maxLines="1"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lokasi" />
-                </HorizontalScrollView>
-
-            </LinearLayout>
 
             <TextView
-                android:text="@string/deskripsi"
+                android:id="@+id/tvLocation"
+                android:text="@string/lokasi"
                 android:padding="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:hint="@string/deskripsi"
-                android:padding="10dp"
-                android:layout_marginBottom="5dp"
-                android:id="@+id/et_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -121,6 +91,7 @@
                 android:id="@+id/btn_save_store"
                 android:layout_gravity="center"
                 android:text="@string/simpan"
+                android:layout_margin="10dp"
                 android:background="@color/colorWhite"
                 android:textAllCaps="false"
                 android:layout_width="wrap_content"
