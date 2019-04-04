@@ -1,5 +1,6 @@
 package com.d4ti.lapoutta.apiHelper;
 
+import com.d4ti.lapoutta.modal.Address;
 import com.d4ti.lapoutta.modal.Blog;
 import com.d4ti.lapoutta.modal.Chart;
 import com.d4ti.lapoutta.modal.Chat;
@@ -10,11 +11,13 @@ import com.d4ti.lapoutta.modal.Product;
 import com.d4ti.lapoutta.modal.Review;
 import com.d4ti.lapoutta.modal.Slide;
 import com.d4ti.lapoutta.modal.Store;
+import com.d4ti.lapoutta.modal.Transaction;
 import com.d4ti.lapoutta.response.ProductResponse;
 
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -52,7 +55,8 @@ public interface BaseApiService {
 
     @Multipart
     @POST("change/profil/mobile")
-    Call<ResponseBody> updateImage(@Part MultipartBody.Part image);
+    Call<ResponseBody> updateImage(@Path("id") int id,
+                                   @Part MultipartBody.Part image);
 
     @FormUrlEncoded
     @POST("change/password/mobile")
@@ -62,7 +66,7 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("create/product")
-    Call<Product> createProduct(@Field("name") String name,
+    Call<ResponseBody> createProduct(@Field("name") String name,
                                      @Field("price") double price,
                                      @Field("stock") int stock,
                                      @Field("description") String description,
@@ -73,7 +77,7 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("update/product")
-    Call<Product> updateProduct(@Field("id") int id,
+    Call<ResponseBody> updateProduct(@Field("id") int id,
                                 @Field("name") String name,
                                 @Field("price") double price,
                                 @Field("stock") int stock,
@@ -90,15 +94,21 @@ public interface BaseApiService {
     @POST("detail/product/mobile")
     Call<List<Product>> detailProduct(@Field("id") int id);
 
+    @Multipart
+    @POST("add/image/product")
+    Call<ResponseBody> updateProduct(@Part MultipartBody.Part gambar,
+                                   @Path("id") RequestBody id);
+
     @FormUrlEncoded
     @POST("store")
     Call<Store> createStore(@Field("name") String name,
-                                   @Field("no_telp") String no_telp,
-                                   @Field("address") String address,
-                                   @Field("no_KTP") String no_KTP,
-                                   @Field("no_Rekening") String no_Rekening,
-                                   @Field("longitude") String longitude,
-                                   @Field("id_customer") int id_customer);
+                            @Field("no_telp") String no_telp,
+                            @Field("address") String address,
+                            @Field("provinsi") String provinsi,
+                            @Field("kabupatenKota") String kabupatenKota,
+                            @Field("no_KTP") String no_KTP,
+                            @Field("no_Rekening") String no_Rekening,
+                            @Field("id_customer") int id_customer);
 
     @FormUrlEncoded
     @POST("update/store")
@@ -106,9 +116,10 @@ public interface BaseApiService {
                                   @Field("name") String name,
                                   @Field("no_telp") String no_telp,
                                   @Field("address") String address,
+                                  @Field("provinsi") String provinsi,
+                                  @Field("kabupatenKota") String kabupatenKota,
                                   @Field("no_KTP") String no_KTP,
-                                  @Field("no_Rekening") String no_Rekening,
-                                  @Field("longitude") String longitude);
+                                  @Field("no_Rekening") String no_Rekening);
 
     @FormUrlEncoded
     @POST("detail/store/mobile")
@@ -149,7 +160,7 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("create/cart")
     Call<Chart> createChart(@Field("quantity") int quantity,
-                            @Field("is_active") boolean is_active,
+                            @Field("is_active") int is_active,
                             @Field("id_customer") int id_customer,
                             @Field("id_product") int id_product);
 
@@ -168,7 +179,7 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("create/blog")
-    Call<ResponseBody> createBlog(@Field("id_store") int id_store,
+    Call<ResponseBody> createBlog(@Field("id_product") int id_product,
                                   @Field("type") int type,
                                   @Field("body") String body);
 
@@ -181,5 +192,30 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("checkout")
     Call<List<DetailTransaction>> checkout(@Field("id_customer") int id_customer);
+
+    @FormUrlEncoded
+    @POST("list/transaction/store")
+    Call<List<Transaction>> listTransactionStore(@Field("id_store") int id_store);
+
+    @FormUrlEncoded
+    @POST("list/api/customer")
+    Call<List<DetailTransaction>> listDetailTransaction(@Field("id_transaction") int id_transaction);
+
+    @FormUrlEncoded
+    @POST("list/transksi/user")
+    Call<List<Transaction>> listTransactionUser(@Field("id_customer") int id_customer);
+
+    @FormUrlEncoded
+    @POST("update/shipment")
+    Call<List<Transaction>> updateTransactionShipment(@Field("id") int id,
+                                                      @Field("id_shipment") int id_shipment);
+
+    @FormUrlEncoded
+    @POST("create/address")
+    Call<List<Address>> createAddress(@Field("id_customer") int id_customer,
+                                   @Field("address") String address,
+                                   @Field("province") String province,
+                                   @Field("kabupatenKota") String kabupatenKota);
+
 
 }

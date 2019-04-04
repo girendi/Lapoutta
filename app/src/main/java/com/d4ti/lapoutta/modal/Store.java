@@ -15,8 +15,10 @@ public class Store {
     private String no_KTP;
     @SerializedName("no_Rekening")
     private String no_Rekening;
-    @SerializedName("longitude")
-    private String longitude;
+    @SerializedName("provinsi")
+    private String provinsi;
+    @SerializedName("kabupatenKota")
+    private String kabupatenKota;
     @SerializedName("id_customer")
     private int id_customer;
     @SerializedName("id_store_status")
@@ -73,12 +75,20 @@ public class Store {
         this.no_Rekening = no_Rekening;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public String getProvinsi() {
+        return provinsi;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setProvinsi(String provinsi) {
+        this.provinsi = provinsi;
+    }
+
+    public String getKabupatenKota() {
+        return kabupatenKota;
+    }
+
+    public void setKabupatenKota(String kabupatenKota) {
+        this.kabupatenKota = kabupatenKota;
     }
 
     public int getId_customer() {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>{
+
+    String url="http://192.168.43.157:1337/images/uploads/";
 
     private Context context;
     private List<Product> products;
@@ -51,7 +54,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.txtNameProduct.setText(getProducts().get(position).getName());
         holder.txtPriceProduct.setText("Rp " + Double.toString(getProducts().get(position).getPrice()));
-        //Glide.with(context).load(getProducts().get(position).getImage()).into(holder.imgProduct);
+        Glide.with(context).load(url + getProducts().get(position).getImage()).into(holder.imgProduct);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

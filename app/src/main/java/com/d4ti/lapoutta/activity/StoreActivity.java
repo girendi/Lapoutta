@@ -20,6 +20,7 @@ import com.d4ti.lapoutta.activity.store.SplashStoreActivity;
 import com.d4ti.lapoutta.adapter.ProductAdapter;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
+import com.d4ti.lapoutta.modal.Customer;
 import com.d4ti.lapoutta.modal.Product;
 import com.d4ti.lapoutta.modal.Store;
 import com.d4ti.lapoutta.response.ProductResponse;
@@ -34,6 +35,7 @@ import retrofit2.Response;
 
 public class StoreActivity extends AppCompatActivity {
 
+    String url="http://192.168.43.157:1337/images/uploads/";
     private ImageView imgLStore, imgMessage, imgNotif, imgProfile, imgChart, imgHome;
     private CircleImageView imgStore;
     private TextView txtNameStore, txtLocation, txtViewLocation, txtDesc, txtDataEmpty, txtHeader;
@@ -136,7 +138,23 @@ public class StoreActivity extends AppCompatActivity {
                     txtHeader.setText(stores.get(0).getName());
                     txtLocation.setText(stores.get(0).getAddress());
                     txtDesc.setText(stores.get(0).getNo_telp());
-                    //Glide.with(getApplicationContext()).load(stores.get(0).getName()).into(imgStore);
+
+                    baseApiService.detailCustomer(stores.get(0).getId_customer()).enqueue(new Callback<List<Customer>>() {
+                        @Override
+                        public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                            if (response.isSuccessful()){
+                                List<Customer> customers = response.body();
+                                if (!customers.isEmpty()){
+                                    Glide.with(getApplicationContext()).load(url + customers.get(0).getImage()).into(imgStore);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Customer>> call, Throwable t) {
+                            Log.e("Error Message", t.getMessage());
+                        }
+                    });
 
                 }else {
                     Log.e("Error", "Tidak Dapat Mengambil Data");

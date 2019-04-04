@@ -36,9 +36,9 @@
                 android:text="@string/add_storie"
                 android:background="@color/colorWhite"
                 android:textAllCaps="false"
-                android:layout_gravity="end"
-                android:layout_marginEnd="10dp"
-                android:layout_width="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <ImageView

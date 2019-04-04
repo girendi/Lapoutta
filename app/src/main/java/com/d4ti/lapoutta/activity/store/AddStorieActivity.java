@@ -62,6 +62,8 @@ public class AddStorieActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Toast.makeText(AddStorieActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+                etStory.setText("");
+                setData();
             }
 
             @Override

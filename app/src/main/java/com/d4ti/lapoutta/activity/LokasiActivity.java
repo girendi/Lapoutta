@@ -8,15 +8,20 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.d4ti.lapoutta.R;
+import com.d4ti.lapoutta.apiHelper.UtilsApi;
 import com.d4ti.lapoutta.apiHelper.network.ApiServicesMaps;
 import com.d4ti.lapoutta.apiHelper.network.InitLibraryMaps;
 import com.d4ti.lapoutta.modal.response.Distance;
 import com.d4ti.lapoutta.modal.response.Duration;
+import com.d4ti.lapoutta.modal.response.EndLocation;
 import com.d4ti.lapoutta.modal.response.LegsItem;
 import com.d4ti.lapoutta.modal.response.ResponseRoute;
+import com.d4ti.lapoutta.modal.response.StartLocation;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -39,14 +44,16 @@ import retrofit2.Response;
 public class LokasiActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap map;
-    private String API_KEY = "AIzaSyDjW7gI2pqfSoois-vrxDE821OUXlJkG3g";
+    private String KEY = "AIzaSyDjW7gI2pqfSoois-vrxDE821OUXlJkG3g";
     private TextView tvDuration, tvDistance;
-    private LatLng pickUpLatLng = new LatLng(-6.175110, 106.865039);
-    private LatLng locationLatLng = new LatLng(-6.197301, 106.795951);
+    private LatLng pickUpLatLng = null;
     private double longitude;
     private double latitude;
     private GoogleApiClient googleApiClient;
     private int id_store;
+
+    String lokasiAwal = "Balige";
+    String lokasiAkhir = "Lumban Bulbul";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,7 @@ public class LokasiActivity extends AppCompatActivity implements OnMapReadyCallb
             latitude = location.getLatitude();
 
             pickUpLatLng = new LatLng(longitude, latitude);
+            Log.i("pickUpLatLng", String.valueOf(pickUpLatLng));
             //moving the map to location
         }
     }
@@ -96,6 +104,7 @@ public class LokasiActivity extends AppCompatActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
         id_store = getIntent().getIntExtra("ID_STORE", 0);
         tvDuration = findViewById(R.id.tvDuration);
         tvDistance = findViewById(R.id.tvDistance);
@@ -103,40 +112,57 @@ public class LokasiActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private void actionRoute() {
 
-        String lokasiAwal = longitude + "," + latitude;
-        String lokasiAkhir = locationLatLng.latitude + "," + locationLatLng.longitude;
-
-        ApiServicesMaps apiServicesMaps = InitLibraryMaps.getInstance();
-        Call<ResponseRoute> responseBodyCall = apiServicesMaps.request_route(lokasiAwal, lokasiAkhir, API_KEY);
-        responseBodyCall.enqueue(new Callback<ResponseRoute>() {
+        // Panggil Retrofit
+        ApiServicesMaps api = InitLibraryMaps.getInstance();
+        // Siapkan request
+        Call<ResponseRoute> routeRequest = api.request_route(lokasiAwal, lokasiAkhir, KEY);
+        routeRequest.enqueue(new Callback<ResponseRoute>() {
             @Override
             public void onResponse(Call<ResponseRoute> call, Response<ResponseRoute> response) {
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()){
+
                     ResponseRoute dataDirection = response.body();
+
                     LegsItem dataLegs = dataDirection.getRoutes().get(0).getLegs().get(0);
+
+                    // Dapatkan garis polyline
                     String polylinePoint = dataDirection.getRoutes().get(0).getOverviewPolyline().getPoints();
+                    // Decode
                     List<LatLng> decodePath = PolyUtil.decode(polylinePoint);
+                    // Gambar garis ke maps
                     map.addPolyline(new PolylineOptions().addAll(decodePath)
                             .width(8f).color(Color.argb(255, 56, 167, 252)))
                             .setGeodesic(true);
-                    map.addMarker(new MarkerOptions().position(pickUpLatLng).title("Lokasi Awal"));
-                    map.addMarker(new MarkerOptions().position(locationLatLng).title("Lokasi Akhir"));
+
+                    StartLocation startLocation = dataLegs.getStartLocation();
+                    EndLocation endLocation = dataLegs.getEndLocation();
+
+                    LatLng pickUpLatLng2 = new LatLng(startLocation.getLat(), startLocation.getLng());
+                    LatLng locationLatLng2 = new LatLng(endLocation.getLat(), endLocation.getLng());
+
+                    // Tambah Marker
+                    map.addMarker(new MarkerOptions().position(pickUpLatLng2).title("Lokasi Awal"));
+                    map.addMarker(new MarkerOptions().position(locationLatLng2).title("Lokasi Akhir"));
+                    // Dapatkan jarak dan waktu
                     Distance dataDistance = dataLegs.getDistance();
                     Duration dataDuration = dataLegs.getDuration();
-                    tvDuration.setText(dataDuration.getText() + " (" + dataDuration.getValue() + ")");
-                    tvDistance.setText(dataDistance.getText() + " (" + dataDistance.getValue() + ")");
-                    LatLngBounds.Builder latLongBuilder = new LatLngBounds.Builder();
-                    latLongBuilder.include(pickUpLatLng);
-                    latLongBuilder.include(locationLatLng);
 
+                    tvDistance.setText("distance : " + dataDistance.getText() + " (" + dataDistance.getValue() + ")");
+                    tvDuration.setText("duration : " + dataDuration.getText() + " (" + dataDuration.getValue() + ")");
+                    /** START
+                     * Logic untuk membuat layar berada ditengah2 dua koordinat
+                     */
+                    LatLngBounds.Builder latLongBuilder = new LatLngBounds.Builder();
+                    latLongBuilder.include(pickUpLatLng2);
+                    latLongBuilder.include(locationLatLng2);
+
+                    // Bounds Coordinata
                     LatLngBounds bounds = latLongBuilder.build();
 
                     int width = getResources().getDisplayMetrics().widthPixels;
                     int height = getResources().getDisplayMetrics().heightPixels;
-                    int paddingMap = (int) (width * 0.2);
-
+                    int paddingMap = (int) (width * 0.2); //jarak dari
                     CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, paddingMap);
-
                     map.animateCamera(cu);
                 }
             }

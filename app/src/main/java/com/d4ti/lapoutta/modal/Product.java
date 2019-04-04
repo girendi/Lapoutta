@@ -11,7 +11,7 @@ public class Product {
     private double price;
     @SerializedName("stock")
     private int stock;
-    @SerializedName("image")
+    @SerializedName("gambar")
     private String image;
     @SerializedName("description")
     private String description;

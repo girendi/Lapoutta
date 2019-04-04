@@ -11,6 +11,8 @@ public class Transaction {
     private int id_customer;
     @SerializedName("id_transaction_status")
     private int id_transaction_status;
+    @SerializedName("id_shipment")
+    private int id_shipment;
 
     public Transaction() {
     }
@@ -45,5 +47,13 @@ public class Transaction {
 
     public void setId_transaction_status(int id_transaction_status) {
         this.id_transaction_status = id_transaction_status;
+    }
+
+    public int getId_shipment() {
+        return id_shipment;
+    }
+
+    public void setId_shipment(int id_shipment) {
+        this.id_shipment = id_shipment;
     }
 }

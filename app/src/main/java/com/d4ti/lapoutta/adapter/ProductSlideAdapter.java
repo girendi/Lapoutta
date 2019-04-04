@@ -15,6 +15,7 @@ import com.d4ti.lapoutta.modal.Product;
 import java.util.List;
 
 public class ProductSlideAdapter extends BaseAdapter {
+    String url="http://192.168.43.157:1337/images/uploads/";
     private Context context;
     private List<Product> products;
 
@@ -46,7 +47,7 @@ public class ProductSlideAdapter extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint({"ViewHolder", "InflateParams"}) View view = inflater.inflate(R.layout.item_list_slide, null);
         ImageView imageView = view.findViewById(R.id.img_slide);
-        Glide.with(context).load(product.getImage()).into(imageView);
+        Glide.with(context).load(url + product.getImage()).into(imageView);
         return view;
     }
 }

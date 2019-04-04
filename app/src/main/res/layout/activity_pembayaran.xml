@@ -137,8 +137,21 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/et_nomor_bank_tujuan"
             android:layout_marginTop="10dp"
-            android:hint="@string/upload_bukti_pembayaran"
+            android:hint="@string/nomor_bank_tujuan"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:padding="5dp"
+            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/et_nomor_bank_pengirim"
+            android:layout_marginTop="10dp"
+            android:hint="@string/nomor_bank_pengirim"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:padding="5dp"
@@ -148,6 +161,7 @@
             android:inputType="text" />
         
         <Button
+            android:id="@+id/btn_save"
             android:layout_marginTop="10dp"
             android:text="@string/konfirmasi_pembayaran"
             android:textAllCaps="false"

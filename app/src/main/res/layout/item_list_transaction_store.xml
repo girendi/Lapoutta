@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txt_no_order"
+        android:text="@string/no_order"
+        android:layout_gravity="center"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_status_send"
+        android:text="@string/status_send"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_status_transaction"
+        android:text="@string/status_transaction"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_view"
+        android:text="@string/view"
+        android:background="@color/colorWhite"
+        android:textAllCaps="false"
+        android:layout_weight="4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

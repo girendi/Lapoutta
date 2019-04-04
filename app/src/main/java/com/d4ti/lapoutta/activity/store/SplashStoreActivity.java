@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.AuthActivity;
+import com.d4ti.lapoutta.activity.MainActivity;
 import com.d4ti.lapoutta.activity.chat.ChatActivity;
 import com.d4ti.lapoutta.activity.notification.NotificationActivity;
 import com.d4ti.lapoutta.activity.profile.ProfileActivity;
@@ -30,7 +31,7 @@ import retrofit2.Response;
 
 public class SplashStoreActivity extends AppCompatActivity {
 
-    private ImageView imgStore, imgMessage, imgNotif, imgProfile;
+    private ImageView imgStore, imgMessage, imgNotif, imgProfile, imgHome;
 
     private Button btn_register;
 
@@ -55,6 +56,7 @@ public class SplashStoreActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(getApplicationContext(), SplashStoreActivity.class));
+                    finish();
                 }
             });
 
@@ -62,6 +64,7 @@ public class SplashStoreActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+                    finish();
                 }
             });
 
@@ -69,6 +72,7 @@ public class SplashStoreActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                    finish();
                 }
             });
 
@@ -76,6 +80,7 @@ public class SplashStoreActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    finish();
                 }
             });
 
@@ -83,6 +88,15 @@ public class SplashStoreActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(getApplicationContext(), RegisterStoreActivity.class));
+                    finish();
+                }
+            });
+
+            imgHome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }
             });
         }
@@ -98,6 +112,7 @@ public class SplashStoreActivity extends AppCompatActivity {
         imgMessage = findViewById(R.id.img_message);
         imgNotif = findViewById(R.id.img_notif);
         imgProfile = findViewById(R.id.img_profile);
+        imgHome = findViewById(R.id.image_home);
     }
 
     private void checkStore(){

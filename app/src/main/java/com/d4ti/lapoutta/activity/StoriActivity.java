@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.adapter.BlogAdapter;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
 import com.d4ti.lapoutta.modal.Blog;
+import com.d4ti.lapoutta.modal.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +25,12 @@ import retrofit2.Response;
 
 public class StoriActivity extends AppCompatActivity {
 
+    String url="http://192.168.43.157:1337/images/uploads/";
+
     private RecyclerView rv_blog;
     private BaseApiService baseApiService;
+    private ImageView img_product;
+    private TextView tv_name_product;
     private int id_product;
     private List<Blog> blogs;
 
@@ -43,6 +51,24 @@ public class StoriActivity extends AppCompatActivity {
     }
 
     private void setData() {
+        baseApiService.detailProduct(id_product).enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful()){
+                    List<Product> products = response.body();
+                    if (!products.isEmpty()){
+                        String name = products.get(0).getName();
+                        tv_name_product.setText(name);
+                        Glide.with(getApplicationContext()).load(url + products.get(0).getImage()).into(img_product);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
         baseApiService.getListBlog(id_product).enqueue(new Callback<List<Blog>>() {
             @Override
             public void onResponse(Call<List<Blog>> call, Response<List<Blog>> response) {
@@ -69,5 +95,7 @@ public class StoriActivity extends AppCompatActivity {
         blogs = new ArrayList<>();
         rv_blog = findViewById(R.id.list_stori);
         baseApiService = UtilsApi.getAPIService();
+        img_product = findViewById(R.id.img_product);
+        tv_name_product = findViewById(R.id.tv_name_product);
     }
 }

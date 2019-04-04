@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.adapter.ChartAdapter;
@@ -33,7 +34,7 @@ public class ChartActivity extends AppCompatActivity {
     public TextView txt_total_price;
     private Button btn_bought;
     public RecyclerView rv_chart;
-    private BaseApiService baseApiService;
+    public BaseApiService baseApiService;
     private int id;
     private double total_price = 0;
     private List<Chart> charts;
@@ -42,24 +43,31 @@ public class ChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
-        initComponent();
-        setData();
-        txt_header.setText("Keranjang Saya");
 
-        imgLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-        });
+        if (SaveSharedPreference.getLoggedStatus(this) != true){
+            Toast.makeText(this, "Status : " + SaveSharedPreference.getLoggedStatus(this), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, AuthActivity.class));
+            finish();
+        }else{
+            initComponent();
+            setData();
+            txt_header.setText("Keranjang Saya");
 
-        btn_bought.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkout();
-            }
-        });
+            imgLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            });
+
+            btn_bought.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkout();
+                }
+            });
+        }
     }
 
     private void checkout() {
@@ -69,7 +77,7 @@ public class ChartActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     List<DetailTransaction> detailTransactions = response.body();
                     if (!detailTransactions.isEmpty()){
-                        int id_transaction = detailTransactions.get(0).getTransaction().getId();
+                        int id_transaction = detailTransactions.get(0).getId_transaction();
                         Intent intent = new Intent(getApplicationContext(), MetodeActivity.class);
                         intent.putExtra("ID_TRANSACTION", id_transaction);
                         startActivity(intent);

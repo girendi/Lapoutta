@@ -1,9 +1,13 @@
 package com.d4ti.lapoutta.activity.profile;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -39,17 +43,19 @@ import retrofit2.Response;
 
 public class ChangeProfileActivity extends AppCompatActivity {
 
+    String url="http://192.168.43.157:1337/images/uploads/";
+
     private BaseApiService baseApiService;
     private int id;
+    String mediaPath;
+    private static final int PERMISSION_STORAGE = 2;
 
     private CircleImageView imgProfile;
     private EditText et_name;
     private EditText et_telepon;
-    private Button btn_save;
+    private Button btn_save, btn_logout;
 
     private List<Customer> listCustomer;
-
-    private Uri uriImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,19 @@ public class ChangeProfileActivity extends AppCompatActivity {
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setRequestImage();
+                if (ContextCompat.checkSelfPermission(ChangeProfileActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(ChangeProfileActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(ChangeProfileActivity.this,
+                            new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            PERMISSION_STORAGE);
+
+                }else{
+                    setRequestImage();
+                }
+
             }
         });
 
@@ -85,12 +103,24 @@ public class ChangeProfileActivity extends AppCompatActivity {
                 saveData();
             }
         });
+
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveSharedPreference.setLoggedIn(getApplicationContext(), false);
+                SaveSharedPreference.setIdStore(getApplicationContext(), 0);
+                SaveSharedPreference.setEmailUser(getApplicationContext(), null);
+                SaveSharedPreference.setIdUser(getApplicationContext(), 0);
+                startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+                finish();
+            }
+        });
     }
 
     private void setRequestImage() {
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(this);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, 0);
     }
 
     private void initComponent() {
@@ -100,6 +130,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
         et_name = findViewById(R.id.et_name);
         et_telepon = findViewById(R.id.et_telepon);
         btn_save = findViewById(R.id.btn_simpan);
+        btn_logout = findViewById(R.id.btn_logout);
     }
 
     private void setData(){
@@ -113,7 +144,7 @@ public class ChangeProfileActivity extends AppCompatActivity {
                         et_telepon.setText(listCustomer.get(0).getNo_telp());
                         if (!listCustomer.get(0).getImage().isEmpty()){
                             Glide.with(ChangeProfileActivity.this)
-                                    .load(listCustomer.get(0).getImage())
+                                    .load(url + listCustomer.get(0).getImage())
                                     .into(imgProfile);
                         }
                     }
@@ -130,7 +161,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
     }
 
     private void saveData(){
-
         baseApiService.updateProfile(id, et_name.getText().toString(), et_telepon.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -152,19 +182,52 @@ public class ChangeProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                uriImage = result.getUri();
-                Glide.with(ChangeProfileActivity.this)
-                        .load(uriImage)
-                        .into(imgProfile);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-                Log.e("Error Message ", error.getMessage());
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            // When an Image is picked
+            if (requestCode == 0 && resultCode == RESULT_OK && null != data) {
+
+                // Get the Image from data
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                assert cursor != null;
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                mediaPath = cursor.getString(columnIndex);
+                // Set the Image in ImageView for Previewing the Media
+                imgProfile.setImageBitmap(BitmapFactory.decodeFile(mediaPath));
+                cursor.close();
+                uploadImage();
+
+            } else {
+                Toast.makeText(this, "You haven't picked Image/Video", Toast.LENGTH_LONG).show();
             }
+        } catch (Exception e) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private void uploadImage() {
+        File file = new File(mediaPath);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("", file.getName(), requestBody);
+
+        baseApiService.updateImage(id, fileToUpload).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(ChangeProfileActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
 }

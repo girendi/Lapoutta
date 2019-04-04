@@ -1,6 +1,5 @@
 package com.d4ti.lapoutta.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,8 +16,6 @@ import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.ChartActivity;
-import com.d4ti.lapoutta.apiHelper.BaseApiService;
-import com.d4ti.lapoutta.apiHelper.UtilsApi;
 import com.d4ti.lapoutta.modal.Chart;
 import com.d4ti.lapoutta.modal.Product;
 import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
@@ -32,9 +29,10 @@ import retrofit2.Response;
 
 public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
 
+    String url="http://192.168.43.157:1337/images/uploads/";
+
     private ChartActivity chartActivity;
     private List<Chart> charts;
-    private BaseApiService baseApiService;
     private double total_price = 0;
     private int id_customer;
 
@@ -54,7 +52,6 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
     @Override
     public ChartAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(chartActivity).inflate(R.layout.item_list_chart, viewGroup, false);
-        baseApiService = UtilsApi.getAPIService();
         id_customer = SaveSharedPreference.getIdUser(chartActivity);
         return new ViewHolder(view);
     }
@@ -62,7 +59,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull final ChartAdapter.ViewHolder viewHolder, final int i) {
 
-        baseApiService.detailProduct(getCharts().get(i).getId_product()).enqueue(new Callback<List<Product>>() {
+        chartActivity.baseApiService.detailProduct(getCharts().get(i).getId_product()).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful()){
@@ -71,7 +68,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
                         viewHolder.txtNameStore.setText(list.get(0).getStore().getName());
                         viewHolder.txtNameProduct.setText(list.get(0).getName());
                         viewHolder.txtPrice.setText(Double.toString(list.get(0).getPrice()));
-                        //Glide.with(context).load(list.get(0).getImage()).into(viewHolder.imgProduct);
+                        Glide.with(chartActivity).load(url + list.get(0).getImage()).into(viewHolder.imgProduct);
                     }
                 }
             }
@@ -87,11 +84,11 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
         viewHolder.btn_quantity.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                baseApiService.updateChart(getCharts().get(i).getId(), newValue).enqueue(new Callback<ResponseBody>() {
+                chartActivity.baseApiService.updateChart(getCharts().get(i).getId(), newValue).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
-                            baseApiService.getListChart(id_customer).enqueue(new Callback<List<Chart>>() {
+                            chartActivity.baseApiService.getListChart(id_customer).enqueue(new Callback<List<Chart>>() {
                                 @Override
                                 public void onResponse(Call<List<Chart>> call, Response<List<Chart>> response) {
                                     if (response.isSuccessful()){
@@ -100,7 +97,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
                                             for (int i = 0; i < charts.size(); i++){
                                                 final int quantity = charts.get(i).getQuantity();
                                                 if (charts.get(i).isIs_active() == 1){
-                                                    baseApiService.detailProduct(charts.get(i).getId_product()).enqueue(new Callback<List<Product>>() {
+                                                    chartActivity.baseApiService.detailProduct(charts.get(i).getId_product()).enqueue(new Callback<List<Product>>() {
                                                         @Override
                                                         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                                                             if (response.isSuccessful()){
@@ -140,24 +137,24 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder>{
         viewHolder.imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                baseApiService.deleteChart(getCharts().get(i).getId()).enqueue(new Callback<ResponseBody>() {
+                chartActivity.baseApiService.deleteChart(getCharts().get(i).getId()).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
-                            baseApiService.getListChart(id_customer).enqueue(new Callback<List<Chart>>() {
+                            chartActivity.baseApiService.getListChart(id_customer).enqueue(new Callback<List<Chart>>() {
                                 @Override
                                 public void onResponse(Call<List<Chart>> call, Response<List<Chart>> response) {
                                     if (response.isSuccessful()){
                                         charts = response.body();
+                                        chartActivity.rv_chart.setLayoutManager(new LinearLayoutManager(chartActivity));
+                                        ChartAdapter chartAdapter = new ChartAdapter(chartActivity);
+                                        chartAdapter.setCharts(charts);
+                                        chartActivity.rv_chart.setAdapter(chartAdapter);
                                         if (!charts.isEmpty()){
-                                            chartActivity.rv_chart.setLayoutManager(new LinearLayoutManager(chartActivity));
-                                            ChartAdapter chartAdapter = new ChartAdapter(chartActivity);
-                                            chartAdapter.setCharts(charts);
-                                            chartActivity.rv_chart.setAdapter(chartAdapter);
                                             for (int i = 0; i < charts.size(); i++){
                                                 final int quantity = charts.get(i).getQuantity();
                                                 if (charts.get(i).isIs_active() == 1){
-                                                    baseApiService.detailProduct(charts.get(i).getId_product()).enqueue(new Callback<List<Product>>() {
+                                                    chartActivity.baseApiService.detailProduct(charts.get(i).getId_product()).enqueue(new Callback<List<Product>>() {
                                                         @Override
                                                         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                                                             if (response.isSuccessful()){

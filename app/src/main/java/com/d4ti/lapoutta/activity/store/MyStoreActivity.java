@@ -11,27 +11,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.AuthActivity;
+import com.d4ti.lapoutta.activity.MainActivity;
 import com.d4ti.lapoutta.activity.chat.ChatActivity;
 import com.d4ti.lapoutta.activity.notification.NotificationActivity;
 import com.d4ti.lapoutta.activity.profile.ProfileActivity;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
 import com.d4ti.lapoutta.fragment.myStore.ProductFragment;
+import com.d4ti.lapoutta.modal.Customer;
 import com.d4ti.lapoutta.modal.Store;
 import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyStoreActivity extends AppCompatActivity {
 
-    private ImageView imgStore, imgMessage, imgNotif, imgProfile;
+    String url="http://192.168.43.157:1337/images/uploads/";
+    private ImageView imgStore, imgMessage, imgNotif, imgProfile, imgHome;
+    private CircleImageView img_Store;
     private TextView tvHeader, tvNameStore, tvLocation;
     private Button btnChange, btnAdd;
     private BaseApiService baseApiService;
@@ -56,6 +62,7 @@ public class MyStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), SplashStoreActivity.class));
+                finish();
             }
         });
 
@@ -63,6 +70,7 @@ public class MyStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+                finish();
             }
         });
 
@@ -70,6 +78,7 @@ public class MyStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                finish();
             }
         });
 
@@ -77,6 +86,7 @@ public class MyStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                finish();
             }
         });
 
@@ -92,6 +102,14 @@ public class MyStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AddProductActivity.class));
+                finish();
+            }
+        });
+
+        imgHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
         });
@@ -113,6 +131,8 @@ public class MyStoreActivity extends AppCompatActivity {
         imgMessage = findViewById(R.id.img_message);
         imgNotif = findViewById(R.id.img_notif);
         imgProfile = findViewById(R.id.img_profile);
+        imgHome = findViewById(R.id.image_home);
+        img_Store = findViewById(R.id.image_toko);
     }
 
     private void checkStore(){
@@ -124,6 +144,22 @@ public class MyStoreActivity extends AppCompatActivity {
                     if (storeList.size() != 0){
                         tvNameStore.setText(storeList.get(0).getName());
                         tvLocation.setText(storeList.get(0).getAddress());
+                        baseApiService.detailCustomer(storeList.get(0).getId_customer()).enqueue(new Callback<List<Customer>>() {
+                            @Override
+                            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+                                if (response.isSuccessful()){
+                                    List<Customer> customers = response.body();
+                                    if (!customers.isEmpty()){
+                                        Glide.with(getApplicationContext()).load(url + customers.get(0).getImage()).into(img_Store);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<Customer>> call, Throwable t) {
+                                Log.e("Error Message", t.getMessage());
+                            }
+                        });
                     }
                 }else {
                     Toast.makeText(MyStoreActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();

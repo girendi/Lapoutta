@@ -18,6 +18,7 @@ import com.d4ti.lapoutta.apiHelper.UtilsApi;
 import com.d4ti.lapoutta.modal.Product;
 import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,9 +80,9 @@ public class AddProductActivity extends AppCompatActivity {
     private void saveData() {
         baseApiService.createProduct(etNameProduct.getText().toString(),Double.parseDouble(etPriceProduct.getText().toString()), Integer.parseInt(etStockProduct.getText().toString()),
                 etProductDesc.getText().toString(), 1, 1, id_store, 1)
-                .enqueue(new Callback<Product>() {
+                .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<Product> call, Response<Product> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
                             startActivity(new Intent(getApplicationContext(), MyStoreActivity.class));
                             finish();
@@ -89,7 +90,7 @@ public class AddProductActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<Product> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         t.printStackTrace();
                     }
                 });

@@ -21,6 +21,7 @@ import com.d4ti.lapoutta.fragment.registerStore.CreateStoreFragment;
 import com.d4ti.lapoutta.fragment.registerStore.InformationFragment;
 import com.d4ti.lapoutta.modal.Store;
 import com.d4ti.lapoutta.sharedPreferences.SaveSharedPreference;
+import com.google.android.libraries.places.api.Places;
 
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class RegisterStoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_store);
         checkMaps();
         initComponent();
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), String.valueOf(R.string.google_maps_key));
+        }
     }
 
     private void checkMaps() {

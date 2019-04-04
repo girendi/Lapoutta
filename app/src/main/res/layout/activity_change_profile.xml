@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
+<RelativeLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,60 +16,81 @@
         android:layout_height="58dp">
     </android.support.v7.widget.Toolbar>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_profile"
-        android:src="@drawable/logo"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="126dp"
-        android:layout_height="126dp" />
-
-    <TextView
-        android:text="@string/nama"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/et_name"
-        android:hint="@string/nama"
-        android:ems="10"
+    <LinearLayout
+        android:layout_below="@id/toolbar_change_profile"
+        android:layout_above="@id/btn_logout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:text="@string/telepon"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_profile"
+            android:src="@drawable/logo"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="126dp"
+            android:layout_height="126dp" />
 
-    <EditText
-        android:id="@+id/et_telepon"
-        android:hint="@string/telepon"
-        android:ems="10"
-        android:layout_width="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/nama"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:hint="@string/nama"
+            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            android:text="@string/telepon"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_telepon"
+            android:hint="@string/telepon"
+            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_simpan"
+            android:hint="@string/simpan"
+            android:textColor="@color/colorInput"
+            android:background="@color/colorWhite"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/btn_simpan"
-        android:hint="@string/simpan"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_logout"
+        android:hint="@string/logout"
+        android:layout_margin="10dp"
         android:textColor="@color/colorInput"
         android:background="@color/colorWhite"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+</RelativeLayout>

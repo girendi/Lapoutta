@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Lapoutta</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDjW7gI2pqfSoois-vrxDE821OUXlJkG3g</string>
+    <string name="raja_ongkir_key">46b89c52c013a7d449e7d174dd096f72</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -102,6 +104,19 @@
     <string name="product_stock">Stok Produk</string>
     <string name="change_store">Ubah Toko</string>
     <string name="change_product">Ubah Produk</string>
+    <string name="send_with_angkot">Kirim dengan Angkot</string>
+    <string name="pesanan_anda_akan_dikirim_menggunakan_angkot">Pesanan Anda Akan Dikirim Menggunakan Jasa Angkot</string>
+    <string name="kirim_angkot">Kirim Angkot</string>
+    <string name="logout">Logout</string>
+    <string name="text_message">Text Message</string>
+    <string name="button_action">Button Action</string>
+    <string name="text_status">Text Status</string>
+    <string name="no_order">Nomor Order</string>
+    <string name="status_send">Status Pengiriman</string>
+    <string name="status_transaction">Status Transaksi</string>
+    <string name="view">Lihat</string>
+    <string name="nomor_bank_tujuan">Nomor Bank Tujuan</string>
+    <string name="nomor_bank_pengirim">Nomor Bank Pengirim</string>
     <string-array name="my_store">
         <item>Produk</item>
         <item>Transaksi</item>

@@ -25,6 +25,8 @@ import retrofit2.Response;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
 
+    String url="http://192.168.43.157:1337/images/uploads/";
+
     private Context context;
     private List<Review> reviews;
 
@@ -62,7 +64,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                     List<Customer> customers = response.body();
                     if (!customers.isEmpty()){
                         viewHolder.txtName.setText(customers.get(0).getName());
-                        Glide.with(context).load(customers.get(0).getImage()).into(viewHolder.civ_profile);
+                        Glide.with(context).load(url + customers.get(0).getImage()).into(viewHolder.civ_profile);
                     }
                 }
             }

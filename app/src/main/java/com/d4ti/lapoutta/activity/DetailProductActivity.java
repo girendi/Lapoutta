@@ -11,6 +11,7 @@ import android.widget.AdapterViewFlipper;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -38,6 +39,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailProductActivity extends AppCompatActivity {
+
+    String url="http://192.168.43.157:1337/images/uploads/";
 
     private ImageView imgLogo, imgTroli, imgToko, imgChart, imgMessage;
     private Button btnBuy;
@@ -93,7 +96,13 @@ public class DetailProductActivity extends AppCompatActivity {
         imgChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToChart();
+                if (SaveSharedPreference.getLoggedStatus(getApplicationContext()) != true){
+                    Toast.makeText(getApplicationContext(), "Status : " + SaveSharedPreference.getLoggedStatus(getApplicationContext()), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+                    finish();
+                }else {
+                    addToChart();
+                }
             }
         });
         imgMessage.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +117,13 @@ public class DetailProductActivity extends AppCompatActivity {
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buyNow();
+                if (SaveSharedPreference.getLoggedStatus(getApplicationContext()) != true){
+                    Toast.makeText(getApplicationContext(), "Status : " + SaveSharedPreference.getLoggedStatus(getApplicationContext()), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+                    finish();
+                }else {
+                    buyNow();
+                }
             }
         });
 
@@ -139,6 +154,8 @@ public class DetailProductActivity extends AppCompatActivity {
                 startActivity(intentStore);
             }
         });
+
+
     }
 
     private void buyNow() {
@@ -148,7 +165,7 @@ public class DetailProductActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     List<DetailTransaction> detailTransactions = response.body();
                     if (!detailTransactions.isEmpty()){
-                        int id_transaction = detailTransactions.get(0).getTransaction().getId();
+                        int id_transaction = detailTransactions.get(0).getId_transaction();
                         Intent intent = new Intent(getApplicationContext(), MetodeActivity.class);
                         intent.putExtra("ID_TRANSACTION", id_transaction);
                         startActivity(intent);
@@ -248,7 +265,7 @@ public class DetailProductActivity extends AppCompatActivity {
                             if (response.isSuccessful()){
                                 List<Customer> customers = response.body();
                                 if (!customers.isEmpty()){
-                                    Glide.with(getApplicationContext()).load(customers.get(0).getImage()).into(imgToko);
+                                    Glide.with(getApplicationContext()).load(url + customers.get(0).getImage()).into(imgToko);
                                 }
                             }
                         }
@@ -273,11 +290,11 @@ public class DetailProductActivity extends AppCompatActivity {
     }
 
     private void addToChart() {
-        baseApiService.createChart(1, true, id_current_user, id_product).enqueue(new Callback<Chart>() {
+        baseApiService.createChart(Integer.parseInt(btn_quantity.getNumber()), 1, id_current_user, id_product).enqueue(new Callback<Chart>() {
             @Override
             public void onResponse(Call<Chart> call, Response<Chart> response) {
                 if (response.isSuccessful()){
-                    Chart chart = response.body();
+                    Toast.makeText(DetailProductActivity.this, "Produk Ditambahkan ke Keranjang", Toast.LENGTH_SHORT).show();
                 }
             }
 

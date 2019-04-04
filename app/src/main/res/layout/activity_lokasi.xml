@@ -57,6 +57,7 @@
 
                 <TextView
                     android:id="@+id/tvDuration"
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rp13.000" />
@@ -86,6 +87,7 @@
 
                 <TextView
                     android:id="@+id/tvDistance"
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.6 Km" />

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.d4ti.lapoutta.R;
 import com.d4ti.lapoutta.activity.AuthActivity;
+import com.d4ti.lapoutta.activity.MainActivity;
 import com.d4ti.lapoutta.activity.chat.ChatActivity;
 import com.d4ti.lapoutta.apiHelper.BaseApiService;
 import com.d4ti.lapoutta.apiHelper.UtilsApi;
@@ -35,11 +36,14 @@ import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private ImageView imgSetting;
+    String url="http://192.168.43.157:1337/images/uploads/";
+
+    private ImageView imgHome;
     private ImageView imgMessage;
     private CircleImageView imgProfile;
     private TextView txtName;
     private TextView txtEmail;
+    private TextView txtSetting;
     private Button btnVerifikasi;
     private Button btnDikemas;
     private Button btnDikirim;
@@ -76,10 +80,18 @@ public class ProfileActivity extends AppCompatActivity {
         getProfile();
         setFragment();
 
-        imgSetting.setOnClickListener(new View.OnClickListener() {
+        txtSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ChangeProfileActivity.class));
+            }
+        });
+
+        imgHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
             }
         });
 
@@ -139,9 +151,10 @@ public class ProfileActivity extends AppCompatActivity {
         customerList = new ArrayList<>();
 
         //view
-        imgSetting = findViewById(R.id.img_setting);
+        txtSetting = findViewById(R.id.txt_setting);
         imgMessage = findViewById(R.id.img_message);
         imgProfile = findViewById(R.id.img_profile);
+        imgHome = findViewById(R.id.img_home);
         txtName = findViewById(R.id.txt_name);
         txtEmail = findViewById(R.id.txt_email);
         btnVerifikasi = findViewById(R.id.btn_verifikasi);
@@ -170,7 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
                         txtEmail.setText(customerList.get(0).getUser().getEmail());
                         if (!customerList.get(0).getImage().isEmpty()){
                             Glide.with(ProfileActivity.this)
-                                    .load(customerList.get(0).getImage())
+                                    .load(url + customerList.get(0).getImage())
                                     .into(imgProfile);
                         }
                     }

@@ -10,12 +10,13 @@
     tools:context=".activity.profile.ProfileActivity">
 
     <RelativeLayout
+        android:background="@color/colorBackground"
         android:layout_width="match_parent"
         android:layout_height="58dp">
 
         <ImageView
-            android:id="@+id/img_setting"
-            android:src="@drawable/ic_settings"
+            android:id="@+id/img_home"
+            android:src="@drawable/logo"
             android:layout_alignParentStart="true"
             android:layout_margin="5dp"
             android:layout_centerVertical="true"
@@ -26,10 +27,10 @@
         <TextView
             android:id="@+id/txt_setting"
             android:text="@string/profil_saya"
-            android:textColor="@color/colorHeader"
+            android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_toEndOf="@id/img_setting"
+            android:layout_toEndOf="@id/img_home"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -85,7 +86,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:padding="10dp"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -177,7 +178,6 @@
 
     <FrameLayout
         android:id="@+id/frameLayout"
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

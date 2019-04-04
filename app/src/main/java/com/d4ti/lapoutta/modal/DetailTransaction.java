@@ -12,7 +12,7 @@ public class DetailTransaction {
     @SerializedName("id_product")
     private int id_product;
     @SerializedName("id_transaction")
-    private Transaction transaction;
+    private int id_transaction;
 
     public DetailTransaction() {
     }
@@ -49,7 +49,11 @@ public class DetailTransaction {
         this.id_product = id_product;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
+    public int getId_transaction() {
+        return id_transaction;
+    }
+
+    public void setId_transaction(int id_transaction) {
+        this.id_transaction = id_transaction;
     }
 }
